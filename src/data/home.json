@@ -1,0 +1,19 @@
+{
+  "heroBadge": "Budapest, III. kerület",
+  "heroTitle1": "Elektromos roller",
+  "heroTitle2": "javítás és szerviz",
+  "heroTitle3": "Budapesten",
+  "heroSubtitle": "Ninebot, Kukirin és Xiaomi-kompatibilis rollerek szakszerű javítása, karbantartása és fejlesztése. Gyors átfutás, átlátható árak, valódi garanciával.",
+  "heroImage": "",
+  "aboutHeading": "Miért érdemes hozzám hozni a rollered?",
+  "aboutParagraphs": [
+    "Évek óta elektromos rollerekkel foglalkozom – először hobbiként, majd egyre több ismerős kérdezgetésére szakszerűen. A Fix My Scoot-tal azt szeretném, amit az ügyfeleim elvárnak: átlátható árak, valódi diagnózis, és nem az, hogy minden javítást a csere irányába terelnek.",
+    "Ninebot, Kukirin és a sok forgalomban lévő kínai replika felépítésével egyaránt tisztában vagyok. Ha hozod a rollered, megmondom mi a baj – és azt is, ha éppen nem érdemes megjavíttatni."
+  ],
+  "aboutImage": "",
+  "stats": [
+    { "value": "200+", "label": "Javított roller" },
+    { "value": "100%", "label": "Elégedett ügyfél" },
+    { "value": "2025", "label": "Megnyitó éve" }
+  ]
+}

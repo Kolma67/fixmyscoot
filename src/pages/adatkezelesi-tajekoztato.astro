@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config/site';
+---
+
+<Layout title="Adatkezelési tájékoztató" noindex={false}
+  description="Fix My Scoot adatkezelési tájékoztató – az időpontfoglalásiűrlapon gyűjtött személyes adatok kezelése.">
+
+  <section style="background:#F8FAFC;border-bottom:1px solid #E2E8F0;padding:3rem 0 2.5rem;">
+    <div class="container" style="max-width:760px;margin:0 auto;">
+      <h1 style="font-size:clamp(1.5rem,4vw,2.25rem);font-weight:900;color:#1E293B;margin-bottom:0.5rem;">
+        Adatkezelési tájékoztató
+      </h1>
+      <p style="color:#64748B;">Utoljára frissítve: 2025. június</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:760px;margin:0 auto;">
+      <!-- TODO: Jogász által ellenőrzött adatkezelési tájékoztatóval cseréld le ezt a sablont! -->
+      <div style="background:#FFF3E0;border:1.5px solid rgba(255,107,0,0.3);border-radius:0.875rem;padding:1rem 1.25rem;margin-bottom:2rem;">
+        <p style="font-size:0.85rem;color:#92400E;font-weight:600;">
+          ⚠️ Ez egy sablon tájékoztató. Kérlek, jogász segítségével igazítsd a vállalkozásodra és az alkalmazandó adatkezelési gyakorlatodra!
+        </p>
+      </div>
+
+      <div style="color:#374151;line-height:1.8;font-size:0.975rem;display:flex;flex-direction:column;gap:1.75rem;">
+
+        <section>
+          <h2 style="font-size:1.125rem;font-weight:700;color:#1E293B;margin-bottom:0.625rem;">1. Az adatkezelő</h2>
+          <p>Adatkezelő: <strong>{SITE.name}</strong><br/>
+          Cím: {SITE.address.full}<br/>
+          Telefon: {SITE.phoneDisplay}<br/>
+          E-mail: {SITE.email}<br/>
+          <!-- TODO: Adja meg vállalkozói nyilvántartási számát, ha rendelkezésre áll --></p>
+        </section>
+
+        <section>
+          <h2 style="font-size:1.125rem;font-weight:700;color:#1E293B;margin-bottom:0.625rem;">2. Kezelt adatok és céljuk</h2>
+          <p>Az időpontfoglalási űrlapon az alábbi személyes adatokat kezeljük:</p>
+          <ul style="margin:0.625rem 0 0.625rem 1.25rem;display:flex;flex-direction:column;gap:0.375rem;">
+            <li><strong>Teljes név</strong> – az ügyfél azonosítása és megszólítása céljából</li>
+            <li><strong>Telefonszám</strong> – visszaigazolás és időpont-egyeztetés céljából</li>
+            <li><strong>E-mail cím</strong> (opcionális) – írásos visszaigazolás küldéséhez</li>
+            <li><strong>Roller típusa / szolgáltatás típusa</strong> – a szervizmunka előkészítéséhez</li>
+            <li><strong>Kívánt időpont</strong> – az időpont-egyeztetéshez</li>
+            <li><strong>Megjegyzés</strong> – a hiba részletesebb leírásához</li>
+          </ul>
+          <p>Az adatokat kizárólag az időpont-egyeztetés és a szervizmunka teljesítése céljából kezeljük.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size:1.125rem;font-weight:700;color:#1E293B;margin-bottom:0.625rem;">3. Az adatkezelés jogalapja</h2>
+          <p>Az adatkezelés jogalapja az érintett <strong>önkéntes hozzájárulása</strong> (GDPR 6. cikk (1) bekezdés a) pont), amelyet az időpontfoglalási űrlap elküldésével ad meg.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size:1.125rem;font-weight:700;color:#1E293B;margin-bottom:0.625rem;">4. Adattárolás és megőrzési idő</h2>
+          <p>Az adatokat a szervizmunka lezárultától számított <strong>legfeljebb 1 évig</strong> tároljuk, ezt követően töröljük. A hozzájárulás visszavonása esetén az adatokat haladéktalanul töröljük.</p>
+          <p>Az időpontfoglalási kérelem az általunk használt e-mail-küldő szolgáltatáson (Web3Forms) keresztül jut el hozzánk. A Web3Forms adatkezelési tájékoztatója: <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer" style="color:#1848A0;">web3forms.com/privacy</a>.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size:1.125rem;font-weight:700;color:#1E293B;margin-bottom:0.625rem;">5. Az érintett jogai</h2>
+          <ul style="margin:0 0 0 1.25rem;display:flex;flex-direction:column;gap:0.375rem;">
+            <li><strong>Hozzáférési jog</strong> – tájékoztatást kérhet a kezelt adatairól</li>
+            <li><strong>Helyesbítési jog</strong> – kérheti pontatlan adatai helyesbítését</li>
+            <li><strong>Törlési jog</strong> – kérheti adatai törlését</li>
+            <li><strong>Hozzájárulás visszavonása</strong> – bármikor visszavonhatja hozzájárulását</li>
+            <li><strong>Panasztétel</strong> – a Nemzeti Adatvédelmi és Információszabadság Hatóságnál (NAIH): <a href="https://www.naih.hu" target="_blank" rel="noopener noreferrer" style="color:#1848A0;">naih.hu</a></li>
+          </ul>
+          <p style="margin-top:0.625rem;">Kérelmeit az <a href={`mailto:${SITE.email}`} style="color:#1848A0;">{SITE.email}</a> e-mail-címre vagy a <a href={`tel:${SITE.phone}`} style="color:#1848A0;">{SITE.phoneDisplay}</a> telefonszámra küldheti.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size:1.125rem;font-weight:700;color:#1E293B;margin-bottom:0.625rem;">6. Sütik (cookie-k)</h2>
+          <p>Ez a weboldal kizárólag technikailag szükséges sütiket alkalmaz. Harmadik fél analitikai vagy marketing sütit nem használunk.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Layout>

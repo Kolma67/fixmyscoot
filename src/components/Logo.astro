@@ -1,0 +1,22 @@
+---
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+const { class: cls = '', size = 'md' } = Astro.props;
+const sizes = { sm: 28, md: 36, lg: 44 };
+const px = sizes[size];
+---
+<a href="/" class:list={['flex items-center gap-2.5 select-none', cls]} aria-label="Fix My Scoot – főoldal">
+  <svg width={px} height={px} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Wheel rim -->
+    <circle cx="18" cy="18" r="15.5" stroke="#1848A0" stroke-width="3"/>
+    <!-- Hub -->
+    <circle cx="18" cy="18" r="3.5" fill="#FF6B00"/>
+    <!-- Lightning bolt (electric scooter energy symbol) -->
+    <path d="M21 5 L13.5 20 L18.5 20 L15 31" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
+  <span style="line-height:1; font-weight:900; letter-spacing:-0.02em; font-size: 1.375rem;">
+    <span style="color:#1848A0;">Fix My </span><span style="color:#FF6B00;">Scoot</span>
+  </span>
+</a>

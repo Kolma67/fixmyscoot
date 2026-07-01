@@ -1,0 +1,80 @@
+# ─────────────────────────────────────────────────────────────────────────
+#  Fix My Scoot – tartalomkezelő (Sveltia CMS) beállításai
+#
+#  HELYI SZERKESZTÉS (GitHub nélkül, most ezt használd):
+#    1. Indítsd a fejlesztői szervert:  npm run dev
+#    2. Nyisd meg Chrome vagy Edge böngészőben:  http://localhost:4322/admin/index.html
+#    3. Kattints: "Work with Local Repository" → válaszd ki a
+#       rollfix-website mappát → engedélyezd az írást.
+#    4. Szerkeszthetsz! A módosítások közvetlenül a fájlokba mentődnek.
+#
+#  ONLINE SZERKESZTÉS (később, ha az oldal fent lesz GitHubon + hostingon):
+#    Írd át lent a "repo" sort a saját GitHub tárolódra, és állíts be
+#    hozzá belépést (lásd a SZERKESZTES-UTMUTATO.md fájlt).
+# ─────────────────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: felhasznalonev/rollfix-website   # TODO: online szerkesztéshez a saját GitHub tárolód
+  branch: main
+
+# Ahová a böngészőből feltöltött képek kerülnek:
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # ═══════════════ ROLLER TÍPUSOK ÉS SZOLGÁLTATÁSOK ═══════════════
+  - name: scooters
+    label: "Roller típusok"
+    label_singular: "Roller típus"
+    identifier_field: model
+    folder: "src/content/scooters"
+    format: yaml-frontmatter
+    extension: md
+    create: true
+    summary: "{{model}}"
+    fields:
+      - { label: "Modell neve", name: model, widget: string }
+      - label: "Márka"
+        name: brand
+        widget: select
+        options: ["Ninebot", "Kukirin", "Egyéb"]
+      - { label: "Sorrend (kisebb szám = előrébb)", name: order, widget: number, value_type: int, default: 99 }
+      - { label: "Modell borítókép (opcionális)", name: image, widget: image, required: false, hint: "Ez jelenik meg a szolgáltatásoknál, ha egy szolgáltatásnak nincs saját képe." }
+      - label: "Szolgáltatások"
+        name: services
+        label_singular: "Szolgáltatás"
+        widget: list
+        summary: "{{fields.name}} — {{fields.price}} Ft"
+        fields:
+          - { label: "Név", name: name, widget: string }
+          - { label: "Ár (Ft)", name: price, widget: number, value_type: int }
+          - { label: "Ár utótag (opcionális)", name: note, widget: string, required: false, hint: 'pl. -tól' }
+          - { label: "Leírás (opcionális)", name: description, widget: text, required: false, hint: "Üresen hagyva az automatikus leírás jelenik meg." }
+          - { label: "Időtartam (opcionális)", name: duration, widget: string, required: false, hint: "pl. kb. 30 perc" }
+          - { label: "Kép ehhez a szolgáltatáshoz (opcionális)", name: image, widget: image, required: false }
+
+  # ═══════════════ FŐOLDAL ═══════════════
+  - name: home
+    label: "Főoldal"
+    files:
+      - name: home
+        label: "Főoldal tartalom"
+        file: "src/data/home.json"
+        fields:
+          - { label: "Hero – kis címke (badge)", name: heroBadge, widget: string }
+          - { label: "Hero – főcím 1. sor", name: heroTitle1, widget: string }
+          - { label: "Hero – főcím 2. sor (narancs kiemelés)", name: heroTitle2, widget: string }
+          - { label: "Hero – főcím 3. sor", name: heroTitle3, widget: string }
+          - { label: "Hero – alcím / bevezető", name: heroSubtitle, widget: text }
+          - { label: "Hero kép (opcionális)", name: heroImage, widget: image, required: false, hint: "Ha üres, a beépített roller-rajz látszik." }
+          - { label: "Rólam – cím", name: aboutHeading, widget: string }
+          - { label: "Rólam – bekezdések (soronként egy)", name: aboutParagraphs, widget: list, hint: "Minden elem egy külön bekezdés." }
+          - { label: "Rólam – fotó (opcionális)", name: aboutImage, widget: image, required: false }
+          - label: "Statisztikák (számláló sáv)"
+            name: stats
+            widget: list
+            summary: "{{fields.value}} — {{fields.label}}"
+            fields:
+              - { label: "Érték", name: value, widget: string }
+              - { label: "Felirat", name: label, widget: string }

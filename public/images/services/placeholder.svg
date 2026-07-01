@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#E2E8F0"/>
+  <rect x="155" y="100" width="90" height="70" rx="8" fill="#CBD5E1"/>
+  <circle cx="200" cy="115" r="15" fill="#94A3B8"/>
+  <path d="M155 155 L175 130 L195 145 L215 125 L245 155Z" fill="#94A3B8"/>
+  <text x="200" y="200" text-anchor="middle" fill="#94A3B8" font-family="system-ui,sans-serif" font-size="13" font-weight="500">Fotó hamarosan</text>
+</svg>

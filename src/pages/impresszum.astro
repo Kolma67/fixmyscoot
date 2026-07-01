@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config/site';
+---
+
+<Layout title="Impresszum" noindex={false}
+  description="Fix My Scoot impresszum – az oldal üzemeltetőjének adatai.">
+
+  <section style="background:#F8FAFC;border-bottom:1px solid #E2E8F0;padding:3rem 0 2.5rem;">
+    <div class="container" style="max-width:680px;margin:0 auto;">
+      <h1 style="font-size:clamp(1.5rem,4vw,2.25rem);font-weight:900;color:#1E293B;">Impresszum</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:680px;margin:0 auto;">
+      <div style="background:white;border:1.5px solid #E2E8F0;border-radius:1.25rem;padding:2rem;display:flex;flex-direction:column;gap:1.5rem;">
+
+        <div>
+          <h2 style="font-size:0.8rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">Weboldal üzemeltetője</h2>
+          <p style="font-size:1rem;font-weight:700;color:#1E293B;">{SITE.name}</p>
+        </div>
+
+        <div style="border-top:1px solid #F1F5F9;padding-top:1.25rem;">
+          <h2 style="font-size:0.8rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">Székhely / Szerviz cím</h2>
+          <p style="color:#374151;">{SITE.address.full}</p>
+        </div>
+
+        <div style="border-top:1px solid #F1F5F9;padding-top:1.25rem;">
+          <h2 style="font-size:0.8rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">Kapcsolat</h2>
+          <p style="color:#374151;">
+            Telefon: <a href={`tel:${SITE.phone}`} style="color:#1848A0;font-weight:600;">{SITE.phoneDisplay}</a><br/>
+            E-mail: <a href={`mailto:${SITE.email}`} style="color:#1848A0;font-weight:600;">{SITE.email}</a>
+          </p>
+        </div>
+
+        <div style="border-top:1px solid #F1F5F9;padding-top:1.25rem;">
+          <h2 style="font-size:0.8rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">Vállalkozói nyilvántartási szám</h2>
+          <!-- TODO: Add ide az egyéni vállalkozói nyilvántartási számodat (ÉVSZÁMSOR), miután megkaptad -->
+          <p style="color:#94A3B8;font-style:italic;">Hamarosan feltüntetve (regisztráció folyamatban)</p>
+        </div>
+
+        <div style="border-top:1px solid #F1F5F9;padding-top:1.25rem;">
+          <h2 style="font-size:0.8rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">Adatkezelés</h2>
+          <p style="color:#374151;">
+            Az oldal adatkezelési gyakorlatát az <a href="/adatkezelesi-tajekoztato" style="color:#1848A0;font-weight:600;">Adatkezelési tájékoztató</a> tartalmazza.
+          </p>
+        </div>
+
+        <div style="border-top:1px solid #F1F5F9;padding-top:1.25rem;">
+          <h2 style="font-size:0.8rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">Szerzői jog</h2>
+          <p style="color:#374151;font-size:0.9rem;line-height:1.6;">
+            A weboldalon található szövegek, képek és grafikai elemek szerzői jogi védelem alatt állnak.
+            Engedély nélküli felhasználásuk tilos. © {new Date().getFullYear()} {SITE.name}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
