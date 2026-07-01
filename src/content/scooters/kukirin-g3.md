@@ -1,35 +1,38 @@
 ---
-model: "Kukirin G3"
-brand: "Kukirin"
+model: Kukirin G3
+brand: Kukirin
 order: 7
-image: "/images/scooters/kukirin-g3.jpg"   # cseréld ki saját képre
+image: /images/scooters/kukirin-g3.jpg
 services:
-  - name: "Külső-belső"
+  - name: Külső
     price: 18400
-  - name: "Belső"
+    note: ''
+    description: ''
+    duration: ''
+  - name: Belső
     price: 10400
-  - name: "Féktárcsa"
+  - name: Féktárcsa
     price: 12000
-  - name: "Fékbetét"
+  - name: Fékbetét
     price: 6400
-  - name: "Hátsó lámpa"
+  - name: Hátsó lámpa
     price: 5600
-  - name: "Vezérlő elektrónika"
+  - name: Vezérlő elektrónika
     price: 40000
-  - name: "Kijelző"
+  - name: Kijelző
     price: 32000
-  - name: "Fékkar"
+  - name: Fékkar
     price: 12800
-  - name: "Kerék csapágy csere (első)"
+  - name: Kerék csapágy csere (első)
     price: 11200
-  - name: "Kerék csapágy csere (hátsó)"
+  - name: Kerék csapágy csere (hátsó)
     price: 16000
-  - name: "Fékállítás"
+  - name: Fékállítás
     price: 4000
-  - name: "Motorkábelcsere"
+  - name: Motorkábelcsere
     price: 17600
-  - name: "Kitámasztócsere"
+  - name: Kitámasztócsere
     price: 8000
-  - name: "Szigetelés csomag"
+  - name: Szigetelés csomag
     price: 12000
 ---

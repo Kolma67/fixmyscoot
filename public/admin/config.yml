@@ -3,19 +3,20 @@
 #
 #  HELYI SZERKESZTÉS (GitHub nélkül, most ezt használd):
 #    1. Indítsd a fejlesztői szervert:  npm run dev
-#    2. Nyisd meg Chrome vagy Edge böngészőben:  http://localhost:4322/admin/index.html
+#    2. Nyisd meg Chrome vagy Edge böngészőben:  http://localhost:4322/admin/
 #    3. Kattints: "Work with Local Repository" → válaszd ki a
-#       rollfix-website mappát → engedélyezd az írást.
+#       fixmyscoot-website mappát → engedélyezd az írást.
 #    4. Szerkeszthetsz! A módosítások közvetlenül a fájlokba mentődnek.
 #
-#  ONLINE SZERKESZTÉS (később, ha az oldal fent lesz GitHubon + hostingon):
-#    Írd át lent a "repo" sort a saját GitHub tárolódra, és állíts be
-#    hozzá belépést (lásd a SZERKESZTES-UTMUTATO.md fájlt).
+#  ONLINE SZERKESZTÉS (később, ha az oldal fent lesz GitHubon + Netlify-on):
+#    A "repo" sor már a fixmyscoot GitHub tárolóra mutat – csak a
+#    felhasznalonev részt írd át a saját GitHub-neveddel, és állíts be
+#    belépést (lásd a SZERKESZTES-UTMUTATO.md fájlt).
 # ─────────────────────────────────────────────────────────────────────────
 
 backend:
   name: github
-  repo: felhasznalonev/rollfix-website   # TODO: online szerkesztéshez a saját GitHub tárolód
+  repo: felhasznalonev/fixmyscoot-website   # TODO: írd át a saját GitHub tárolódra
   branch: main
 
 # Ahová a böngészőből feltöltött képek kerülnek:
@@ -54,6 +55,26 @@ collections:
           - { label: "Időtartam (opcionális)", name: duration, widget: string, required: false, hint: "pl. kb. 30 perc" }
           - { label: "Kép ehhez a szolgáltatáshoz (opcionális)", name: image, widget: image, required: false }
 
+  # ═══════════════ TUNING ÉS FEJLESZTÉS ═══════════════
+  - name: tuning
+    label: "Tuning szolgáltatások"
+    label_singular: "Tuning szolgáltatás"
+    identifier_field: title
+    folder: "src/content/tuning"
+    format: yaml-frontmatter
+    extension: md
+    create: true
+    summary: "{{title}}"
+    fields:
+      - { label: "Név", name: title, widget: string }
+      - { label: "Leírás", name: description, widget: text }
+      - { label: "Kép (opcionális)", name: image, widget: image, required: false }
+      - { label: "Ár (Ft, opcionális)", name: price, widget: number, value_type: int, required: false, hint: "Ha van fix ár. Ha üresen hagyod, az alábbi szöveges ár jelenik meg." }
+      - { label: "Ár utótag (opcionális)", name: note, widget: string, required: false, hint: 'pl. -tól' }
+      - { label: "Szöveges ár (ha nincs fix ár)", name: priceText, widget: string, required: false, hint: 'pl. "egyedi ajánlat"' }
+      - { label: "Sorrend", name: order, widget: number, value_type: int, default: 99 }
+      - { label: "Választható opciók", name: options, widget: list, hint: "Minden elem egy opció, pipával jelenik meg." }
+
   # ═══════════════ FŐOLDAL ═══════════════
   - name: home
     label: "Főoldal"
@@ -68,9 +89,9 @@ collections:
           - { label: "Hero – főcím 3. sor", name: heroTitle3, widget: string }
           - { label: "Hero – alcím / bevezető", name: heroSubtitle, widget: text }
           - { label: "Hero kép (opcionális)", name: heroImage, widget: image, required: false, hint: "Ha üres, a beépített roller-rajz látszik." }
-          - { label: "Rólam – cím", name: aboutHeading, widget: string }
-          - { label: "Rólam – bekezdések (soronként egy)", name: aboutParagraphs, widget: list, hint: "Minden elem egy külön bekezdés." }
-          - { label: "Rólam – fotó (opcionális)", name: aboutImage, widget: image, required: false }
+          - { label: "Hero – elsődleges gomb", name: heroCtaPrimary, widget: string }
+          - { label: "Hero – másodlagos gomb", name: heroCtaSecondary, widget: string }
+          - { label: "Márkasáv – cím", name: brandStripTitle, widget: string }
           - label: "Statisztikák (számláló sáv)"
             name: stats
             widget: list
@@ -78,3 +99,14 @@ collections:
             fields:
               - { label: "Érték", name: value, widget: string }
               - { label: "Felirat", name: label, widget: string }
+          - { label: "Roller szekció – cím", name: modelsTitle, widget: string }
+          - { label: "Roller szekció – alcím", name: modelsSubtitle, widget: text }
+          - { label: "Roller szekció – gomb", name: modelsButton, widget: string }
+          - { label: "CTA sáv – kis címke", name: ctaBadge, widget: string }
+          - { label: "CTA sáv – cím", name: ctaTitle, widget: string }
+          - { label: "CTA sáv – szöveg", name: ctaText, widget: text }
+          - { label: "CTA sáv – gomb", name: ctaButton, widget: string }
+          - { label: "Rólam – cím", name: aboutHeading, widget: string }
+          - { label: "Rólam – bekezdések (soronként egy)", name: aboutParagraphs, widget: list, hint: "Minden elem egy külön bekezdés." }
+          - { label: "Rólam – fotó (opcionális)", name: aboutImage, widget: image, required: false }
+          - { label: "Kapcsolat szekció – cím", name: contactTitle, widget: string }

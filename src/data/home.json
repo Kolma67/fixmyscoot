@@ -3,17 +3,28 @@
   "heroTitle1": "Elektromos roller",
   "heroTitle2": "javítás és szerviz",
   "heroTitle3": "Budapesten",
-  "heroSubtitle": "Ninebot, Kukirin és Xiaomi-kompatibilis rollerek szakszerű javítása, karbantartása és fejlesztése. Gyors átfutás, átlátható árak, valódi garanciával.",
+  "heroSubtitle": "Ninebot, Kukirin és Xiaomi-kompatibilis rollerek szakszerű javítása, karbantartása és fejlesztése. Gyors átfutás, átlátható árak.",
   "heroImage": "",
+  "heroCtaPrimary": "Időpontot kérek",
+  "heroCtaSecondary": "Összes szolgáltatás",
+  "brandStripTitle": "Márkák, amelyekre specializálódtam",
+  "stats": [
+    { "value": "200+", "label": "Javított roller" },
+    { "value": "100%", "label": "Elégedett ügyfél" },
+    { "value": "2026", "label": "Óta" }
+  ],
+  "modelsTitle": "Mely rollerekhez értek?",
+  "modelsSubtitle": "Válaszd ki a rollered típusát, és azonnal látod a hozzá tartozó szolgáltatásokat és pontos árakat.",
+  "modelsButton": "Összes szolgáltatás és ár",
+  "ctaBadge": "Javítás & karbantartás",
+  "ctaTitle": "Nem indul, fékez vagy zörög a rollered?",
+  "ctaText": "Defektcserétől a vezérlőelektronikáig – gumicsere, fék, kijelző, csapágy, szigetelés. Diagnózissal kezdek, és csak azt cserélem, ami valóban kell.",
+  "ctaButton": "Időpontot kérek",
   "aboutHeading": "Miért érdemes hozzám hozni a rollered?",
   "aboutParagraphs": [
     "Évek óta elektromos rollerekkel foglalkozom – először hobbiként, majd egyre több ismerős kérdezgetésére szakszerűen. A Fix My Scoot-tal azt szeretném, amit az ügyfeleim elvárnak: átlátható árak, valódi diagnózis, és nem az, hogy minden javítást a csere irányába terelnek.",
     "Ninebot, Kukirin és a sok forgalomban lévő kínai replika felépítésével egyaránt tisztában vagyok. Ha hozod a rollered, megmondom mi a baj – és azt is, ha éppen nem érdemes megjavíttatni."
   ],
   "aboutImage": "",
-  "stats": [
-    { "value": "200+", "label": "Javított roller" },
-    { "value": "100%", "label": "Elégedett ügyfél" },
-    { "value": "2025", "label": "Megnyitó éve" }
-  ]
+  "contactTitle": "Hol találsz meg?"
 }

@@ -19,8 +19,9 @@ export const SITE = {
     longitude: 19.0397,
   },
   priceRange: '$$',
-  socialWhatsApp: 'https://wa.me/36304703778',
-  // socialMessenger: '', // TODO: add if you use Messenger
+  socialViber: 'viber://chat?number=%2B36304703778',
   brands: ['Ninebot', 'Kukirin', 'Xiaomi-kompatibilis'],
   founded: '2025',
+  // Google Maps beágyazás (nem kell API kulcs)
+  mapEmbedUrl: 'https://www.google.com/maps?q=1039+Budapest+Frigyes+utca+10&output=embed',
 } as const;

@@ -1,38 +1,39 @@
 ---
-model: "Kukirin G2 PRO (ÚJ)"
-brand: "Kukirin"
+model: Kukirin G2 PRO (ÚJ)
+brand: Kukirin
 order: 4
-image: "/images/scooters/kukirin-g2-pro.jpg"   # cseréld ki saját képre
+image: /images/scooters/kukirin-g2-pro.jpg
 services:
-  - name: "Külső-belső"
+  - name: Külső
     price: 18400
-  - name: "Belső"
-    price: 10400
-  - name: "Féktárcsa"
+    note: ''
+    description: ''
+    duration: ''
+  - name: Féktárcsa
     price: 12000
-  - name: "Fékbetét"
+  - name: Fékbetét
     price: 6400
-  - name: "Hátsó lámpa"
+  - name: Hátsó lámpa
     price: 5600
-  - name: "Vezérlő elektrónika"
+  - name: Vezérlő elektrónika
     price: 36000
-  - name: "Kijelző"
+  - name: Kijelző
     price: 36000
-  - name: "Fékkar"
+  - name: Fékkar
     price: 12800
-  - name: "Kerék csapágy (első)"
+  - name: Kerék csapágy (első)
     price: 11200
-  - name: "Kerék csapágy (hátsó)"
+  - name: Kerék csapágy (hátsó)
     price: 16000
-  - name: "Fékállítás"
+  - name: Fékállítás
     price: 4000
-  - name: "Motorkábel"
+  - name: Motorkábel
     price: 16000
-  - name: "Kitámasztó"
+  - name: Kitámasztó
     price: 7200
-  - name: "Szigetelés csomag"
+  - name: Szigetelés csomag
     price: 12000
-  - name: "Hidraulikus fékátépítés"
+  - name: Hidraulikus fékátépítés
     price: 48000
-    note: "-tól"
+    note: -tól
 ---

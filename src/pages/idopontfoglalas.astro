@@ -56,23 +56,18 @@ const modelData = scooters.map(s => ({
         ))}
       </div>
 
-      <!-- Web3Forms setup note -->
       <!--
-        TODO: Foglalási form beállítása:
-        1. Menj a https://web3forms.com/ oldalra
-        2. Add meg az e-mail címedet, kapsz egy access key-t
-        3. Hozd létre az .env fájlt: PUBLIC_WEB3FORMS_KEY=your-key-here
-        4. Töröld ezt a megjegyzés blokkot
+        A foglalások a NETLIFY FORMS-ba érkeznek (miután az oldal fent van Netlify-on):
+        a Netlify vezérlőpultján a Forms fülön látod az összes foglalást (ez az "adatbázis"),
+        és e-mailt is kapsz mindegyikről. Beállítás a SZERKESZTES-UTMUTATO.md-ben.
       -->
 
-      <!-- Form -->
-      <form id="booking-form" novalidate
+      <!-- Form (Netlify Forms) -->
+      <form id="booking-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate
         style="background:white;border:1.5px solid #E2E8F0;border-radius:1.25rem;padding:2rem;display:flex;flex-direction:column;gap:1.375rem;">
 
-        <input type="hidden" name="access_key" value="PLACEHOLDER_WEB3FORMS_KEY" />
-        <input type="hidden" name="subject" value="Új időpontfoglalási kérelem – Fix My Scoot" />
-        <input type="hidden" name="from_name" value="Fix My Scoot Időpontfoglalás" />
-        <input type="checkbox" name="botcheck" style="display:none;" />
+        <input type="hidden" name="form-name" value="booking" />
+        <p style="display:none;"><label>Ne töltsd ki, ha ember vagy: <input name="bot-field" /></label></p>
 
         <!-- Teljes név -->
         <div>
@@ -323,21 +318,21 @@ const modelData = scooters.map(s => ({
       submitBtn.disabled = true;
       submitBtn.textContent = 'Küldés…';
 
-      const data = Object.fromEntries(new FormData(form));
+      // Netlify Forms beküldés (urlencoded a "/" végpontra)
+      const body = new URLSearchParams(new FormData(form) as any).toString();
 
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const res = await fetch('/', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
         });
-        const json = await res.json();
 
-        if (json.success) {
+        if (res.ok) {
           form.hidden = true;
           if (successState) successState.hidden = false;
         } else {
-          throw new Error(json.message);
+          throw new Error('submit failed');
         }
       } catch {
         if (errorState) errorState.hidden = false;

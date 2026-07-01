@@ -1,0 +1,10 @@
+# Netlify build beállítások a Fix My Scoot oldalhoz
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# A foglalási űrlap a Netlify Forms-ba érkezik (data-netlify="true" a form-on).
+# A beérkezett foglalásokat a Netlify vezérlőpult → Forms fülön látod.

@@ -11,7 +11,7 @@ Az oldalhoz tartozik egy böngészős tartalomkezelő, ahol kattintgatással sze
 
 **Lépések (helyi szerkesztés, GitHub nélkül):**
 
-1. Indítsd el a fejlesztői szervert. Nyiss egy terminált a `rollfix-website` mappában, és írd be:
+1. Indítsd el a fejlesztői szervert. Nyiss egy terminált a `fixmyscoot-website` mappában, és írd be:
    ```
    npm run dev
    ```
@@ -21,7 +21,7 @@ Az oldalhoz tartozik egy böngészős tartalomkezelő, ahol kattintgatással sze
    ```
    (Miután az oldal élesben, tárhelyen lesz, ott egyszerűen `.../admin/` is elég.)
 3. Kattints a **„Work with Local Repository"** gombra.
-4. A megjelenő ablakban válaszd ki a **`rollfix-website`** mappát, és engedélyezd az írást.
+4. A megjelenő ablakban válaszd ki a **`fixmyscoot-website`** mappát, és engedélyezd az írást.
 5. Kész! Bal oldalon látod a szerkeszthető részeket: **Roller típusok** és **Főoldal**.
 
 > A módosítások közvetlenül a fájlokba mentődnek. Ha fut a `npm run dev`, a

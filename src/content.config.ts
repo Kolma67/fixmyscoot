@@ -22,4 +22,19 @@ const scooters = defineCollection({
   }),
 });
 
-export const collections = { scooters };
+// Tuning / fejlesztés szolgáltatások: src/content/tuning/<szolgaltatas>.md
+const tuning = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/tuning' }),
+  schema: z.object({
+    title: z.string(),                       // pl. "Akkumulátorépítés"
+    description: z.string(),                  // rövid leírás
+    price: z.number().optional(),            // fix "-tól" ár (ha van), pl. 10000
+    priceText: z.string().optional(),        // ha nincs fix ár, pl. "egyedi ajánlat"
+    note: z.string().optional(),             // pl. "-tól"
+    image: z.string().optional(),            // kép a szolgáltatáshoz
+    order: z.number().optional().default(99),
+    options: z.array(z.string()).default([]),// választható opciók listája
+  }),
+});
+
+export const collections = { scooters, tuning };

@@ -1,38 +1,91 @@
 ---
-model: "Kukirin G2"
-brand: "Kukirin"
+model: Kukirin G2
+brand: Kukirin
 order: 3
-image: "/images/scooters/kukirin-g2.jpg"   # cseréld ki saját képre
+image: /images/scooters/kukirin-g2.jpg
 services:
-  - name: "Külső-belső"
+  - name: Külső
     price: 18400
-  - name: "Belső"
-    price: 10400
-  - name: "Féktárcsa"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-külső.jpg
+  - name: Féktárcsa
     price: 12000
-  - name: "Fékbetét"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-féktárcsa.avif
+  - name: Fékbetét
     price: 6400
-  - name: "Hátsó lámpa"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-fékpofa.webp
+  - name: Hátsó lámpa
     price: 5600
-  - name: "Vezérlő elektrónika"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-hátsólámpa.jpg
+  - name: Vezérlő elektrónika
     price: 36000
-  - name: "Kijelző"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-vezérlő.avif
+  - name: Kijelző
     price: 36000
-  - name: "Fékkar"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-kijelző.webp
+  - name: Fékkar
     price: 12800
-  - name: "Kerék csapágy (első)"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g2pro-fékkar.webp
+  - name: Kerék csapágy (első)
     price: 11200
-  - name: "Kerék csapágy (hátsó)"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-csapágyak.jpg
+  - name: Kerék csapágy (hátsó)
     price: 16000
-  - name: "Fékállítás"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-csapágyak.jpg
+  - name: Fékállítás
     price: 4000
-  - name: "Motorkábel"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-fékállitas.webp
+  - name: Motorkábel
     price: 16000
-  - name: "Kitámasztó"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-kábel-motor.avif
+  - name: Kitámasztó
     price: 7200
-  - name: "Szigetelés csomag"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-kitámasztó.png
+  - name: Szigetelés csomag
     price: 12000
-  - name: "Hidraulikus fékátépítés"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/szigetelés.jpg
+  - name: Hidraulikus fékátépítés
     price: 48000
-    note: "-tól"
+    note: -tól
+    description: ''
+    duration: ''
+    image: /images/uploads/fékátépítés.jpg
 ---
