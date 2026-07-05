@@ -319,7 +319,7 @@ const modelData = scooters.map(s => ({
       submitBtn.textContent = 'Küldés…';
 
       // Netlify Forms beküldés (urlencoded a "/" végpontra)
-      const body = new URLSearchParams(new FormData(form) as any).toString();
+      const body = new URLSearchParams(new FormData(form)).toString();
 
       try {
         const res = await fetch('/', {

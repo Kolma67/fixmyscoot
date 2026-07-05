@@ -77,7 +77,7 @@ const breadcrumb = {
                     {item.data.price != null ? `${fmt(item.data.price)} Ft${item.data.note ?? ''}` : (item.data.priceText ?? 'egyedi ajánlat')}
                   </span>
                 </div>
-                <a href="/kapcsolat" class="btn-primary" style="font-size:0.9rem;padding:0.55rem 1.1rem;">Ajánlatot kérek</a>
+                <a href={`/kapcsolat?tema=${encodeURIComponent(item.data.title)}#ajanlatkeres`} class="btn-primary" style="font-size:0.9rem;padding:0.55rem 1.1rem;">Ajánlatot kérek</a>
               </div>
             </div>
           </article>
@@ -91,7 +91,7 @@ const breadcrumb = {
           A tuning mindig személyre szabott. Írd meg, mit szeretnél elérni – hatótáv, sebesség vagy külső –, és együtt kitaláljuk a legjobb megoldást.
         </p>
         <div style="display:flex;gap:0.875rem;justify-content:center;flex-wrap:wrap;">
-          <a href="/kapcsolat" class="btn-primary">Kapcsolatfelvétel</a>
+          <a href="/kapcsolat#ajanlatkeres" class="btn-primary">Ajánlatot kérek</a>
           <a href={`tel:${SITE.phone}`} class="btn-secondary">Hívás</a>
         </div>
       </div>
