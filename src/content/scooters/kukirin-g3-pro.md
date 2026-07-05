@@ -1,33 +1,76 @@
 ---
-model: "Kukirin G3 PRO"
-brand: "Kukirin"
+model: Kukirin G3 PRO
+brand: Kukirin
 order: 8
-image: "/images/scooters/kukirin-g3-pro.jpg"   # cseréld ki saját képre
+image: /images/scooters/kukirin-g3-pro.jpg
 services:
-  - name: "Külső-belső"
-    price: 18400
-  - name: "Belső"
-    price: 11200
-  - name: "Féktárcsa"
+  - name: Külső
+    price: 17500
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g2m-tyre.jpg
+  - name: Féktárcsa
     price: 12800
-  - name: "Fékbetét"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g3p-discx.avif
+  - name: Fékbetét
     price: 6200
-  - name: "Hátsó lámpa"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g4-brake pads.jpg
+  - name: Hátsó lámpa
     price: 8000
-  - name: "Vezérlő elektrónika"
+    image: /images/uploads/g3p-hátsó-lámpa.avif
+  - name: Vezérlő elektrónika
     price: 58000
-  - name: "Kijelző"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g3p-controller.webp
+  - name: Kijelző
     price: 40000
-  - name: "Fékkar"
-    price: 12800
-  - name: "Kerék csapágy csere"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g2p-display.webp
+  - name: Fékkar
+    price: 26800
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g3p-brake-lever.webp
+  - name: Kerék csapágy csere
     price: 17600
-  - name: "Fékállítás"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-csapágyak.jpg
+  - name: Fékállítás
     price: 4000
-  - name: "Motorkábelcsere"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g3p-brake-set.webp
+  - name: Motorkábelcsere
     price: 19200
-  - name: "Kitámasztócsere"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-kábel-motor.avif
+  - name: Kitámasztócsere
     price: 9600
-  - name: "Fék légtelenítés"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-kitámasztó.png
+  - name: Fék légtelenítés
     price: 11500
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g3p-brake-set.webp
 ---

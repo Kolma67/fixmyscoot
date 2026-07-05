@@ -1,33 +1,76 @@
 ---
-model: "Ninebot F-Széria"
-brand: "Ninebot"
+model: Ninebot F-Széria
+brand: Ninebot
 order: 2
-image: "/images/scooters/ninebot-f-szeria.jpg"   # cseréld ki saját képre
+image: /images/scooters/ninebot-f-szeria.jpg
 services:
-  - name: "Külső"
+  - name: Külső
     price: 15000
-  - name: "Hátsó sárvédő + lámpa + merevítő"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/segway-ninebot-max-g30-tyre-6070-65-826307.webp
+  - name: Hátsó sárvédő + lámpa
     price: 16000
-  - name: "Tömörgumi"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/fserie-sárvédő+lámpa.webp
+  - name: Tömörgumi
     price: 20000
-  - name: "Hátsó lámpa"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-tömörgumi.webp
+  - name: Hátsó lámpa
     price: 8000
-  - name: "Vezérlő elektrónika"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/fserie-lámpa.webp
+  - name: Vezérlő elektronika
     price: 39000
-  - name: "Sárvédő merevítő"
-    price: 6000
-  - name: "Gázkar"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/fserie-controller.avif
+  - name: Gázkar
     price: 15000
-  - name: "Fékkar"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/gázkar-g30.jpg
+  - name: Fékkar
     price: 14500
-  - name: "Kijelző csere"
+    note: ''
+    description: ''
+    image: /images/uploads/fékkar-g30.jpg
+  - name: Kijelző csere
     price: 29000
-  - name: "Kerék csapágy (motorkerék)"
+    duration: ''
+    image: /images/uploads/képernyő-g30.jpg
+  - name: Kerék csapágy (motorkerék)
     price: 22000
-  - name: "Kerék csapágy"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-csapágyak.jpg
+  - name: Kerék csapágy
     price: 14000
-  - name: "Fékállítás"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-csapágyak.jpg
+  - name: Fékállítás
     price: 4500
-  - name: "Kitámasztócsere"
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g30-fékállítás.avif
+  - name: Kitámasztócsere
     price: 9000
+    note: ''
+    description: ''
+    duration: ''
+    image: /images/uploads/g20-kitámasztó.png
 ---
