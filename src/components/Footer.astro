@@ -45,7 +45,7 @@ import { weeklySchedule } from '../config/openingHours';
             { href: '/kapcsolat', label: 'Kapcsolat' },
           ].map(item => (
             <li>
-              <a href={item.href}
+              <a href={item.href} class="footer-nav-link"
                 style="color:#94A3B8;text-decoration:none;font-size:0.9rem;transition:color 150ms;"
                 onmouseover="this.style.color='#FF6B00'"
                 onmouseout="this.style.color='#94A3B8'">
@@ -106,4 +106,8 @@ import { weeklySchedule } from '../config/openingHours';
   }
   /* Override logo color in dark footer */
   .footer-logo span { filter: brightness(1.3); }
+  /* Mobilon nagyobb tapadó felület a footer linkeknek (könnyebb tappelés) */
+  @media (max-width: 640px) {
+    .footer-nav-link { display: inline-block; padding: 0.4rem 0; }
+  }
 </style>

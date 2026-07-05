@@ -146,3 +146,13 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
 }
+
+/* iOS Safari: megakadályozza a beúszó ráközelítést input fókuszkor
+   (a Safari akkor zoomol, ha a mező betűmérete < 16px). */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
