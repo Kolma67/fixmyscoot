@@ -297,6 +297,7 @@ const localBusiness = {
     qForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!qValidate()) return;
+      if (qError) qError.hidden = true;
       qSubmit.disabled = true;
       qSubmit.textContent = 'Küldés…';
       const body = new URLSearchParams(new FormData(qForm)).toString();

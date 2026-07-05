@@ -315,6 +315,7 @@ const modelData = scooters.map(s => ({
       e.preventDefault();
       if (!validateForm()) return;
 
+      if (errorState) errorState.hidden = true;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Küldés…';
 
