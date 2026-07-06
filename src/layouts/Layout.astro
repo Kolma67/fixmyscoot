@@ -60,6 +60,9 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} – ${SITE.name}`;
 
     <!-- Theme color (mobile browser chrome) -->
     <meta name="theme-color" content="#1848A0" />
+
+    <!-- Oldalankénti fej-tartalom (pl. JSON-LD strukturált adatok) -->
+    <slot name="head" />
   </head>
   <body>
     <Nav />

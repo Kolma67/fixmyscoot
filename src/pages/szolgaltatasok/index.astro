@@ -85,7 +85,7 @@ const breadcrumb = {
       <div id="overview">
         <div style="display:grid;gap:1.25rem;grid-template-columns:1fr;" class="sm:grid-2 lg:grid-3">
           {models.map(m => (
-            <button class="model-box" data-goto={m.slug} type="button">
+            <a class="model-box" href={`/szolgaltatasok/${m.slug}`}>
               <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.875rem;">
                 <div style="display:flex;align-items:center;gap:0.625rem;">
                   <img src={getBrandLogo(m.brand)} data-fallback={getBrandLogoFallback(m.brand)} alt={`${m.brand} logó`} width="65" height="65" style="width:65px;height:65px;border-radius:0.625rem;flex-shrink:0;object-fit:contain;" loading="lazy" onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback;}" />
@@ -108,75 +108,13 @@ const breadcrumb = {
                 )}
               </ul>
               <span class="model-box-cta">
-                Összes szolgáltatás és részletek
+                Összes szolgáltatás és ár megtekintése
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </span>
-            </button>
+            </a>
           ))}
         </div>
       </div>
-
-      <!-- ───────── RÉSZLETES NÉZET (egy modell szolgáltatásai) ───────── -->
-      {models.map(m => (
-        <div class="model-detail" data-detail={m.slug} hidden>
-          <button class="back-link" type="button" data-back>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-            Összes roller típus
-          </button>
-
-          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin:1rem 0 1.75rem;">
-            <img src={getBrandLogo(m.brand)} data-fallback={getBrandLogoFallback(m.brand)} alt={`${m.brand} logó`} width="64" height="64" style="width:64px;height:64px;border-radius:0.75rem;flex-shrink:0;object-fit:contain;" onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback;}" />
-            <span class="badge badge-brand">{m.brand}</span>
-            <h2 style="font-size:clamp(1.5rem,4vw,2rem);font-weight:900;color:#1E293B;line-height:1.1;">{m.model}</h2>
-          </div>
-
-          <!-- Kereső (csak kiválasztott típusnál látszik) -->
-          <div style="position:relative;max-width:420px;margin-bottom:1.5rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);pointer-events:none;" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input type="search" class="detail-search" placeholder="Keresés a szolgáltatások között…" aria-label={`Keresés a(z) ${m.model} szolgáltatásai között`} />
-          </div>
-
-          <div class="detail-grid sm:grid-2 lg:grid-3" style="display:grid;gap:1.25rem;grid-template-columns:1fr;">
-            {m.services.map(svc => (
-              <article class="card service-card" data-search={`${svc.name} ${svc.description}`.toLowerCase()} style="display:flex;flex-direction:column;overflow:hidden;">
-                <!-- kép helye (1:1, szürke termékfotó-háttérhez illesztve) -->
-                <div class="service-media">
-                  {svc.image ? (
-                    <img src={svc.image} alt={`${m.model} – ${svc.name}`} loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                  ) : null}
-                  <div class="service-media-fallback" style={svc.image ? 'display:none;' : 'display:flex;'}>
-                    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[svc.icon]} />
-                  </div>
-                </div>
-
-                <div style="padding:1.125rem 1.25rem;display:flex;flex-direction:column;flex:1;">
-                  <h3 style="font-size:1.05rem;font-weight:800;color:#1E293B;margin-bottom:0.5rem;line-height:1.25;">{svc.name}</h3>
-                  <p style="font-size:0.875rem;color:#64748B;line-height:1.6;margin-bottom:1rem;flex:1;">{svc.description}</p>
-
-                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:0.5rem;margin-bottom:0.875rem;">
-                    <div>
-                      <span style="font-size:0.72rem;color:#94A3B8;display:block;">Ár</span>
-                      <span style="font-size:1.25rem;font-weight:900;color:#1848A0;">{fmt(svc.price)} Ft{svc.note}</span>
-                    </div>
-                    <div style="text-align:right;">
-                      <span style="font-size:0.72rem;color:#94A3B8;display:block;">Időtartam</span>
-                      <span style="font-size:0.85rem;font-weight:600;color:#475569;">{svc.duration}</span>
-                    </div>
-                  </div>
-
-                  <a href={`/idopontfoglalas?roller=${m.slug}&szolgaltatas=${encodeURIComponent(svc.name)}`} class="btn-primary" style="width:100%;justify-content:center;font-size:0.9rem;">
-                    Időpontot kérek
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <p class="detail-empty" hidden style="text-align:center;color:#94A3B8;padding:2.5rem 1rem;font-size:0.95rem;">
-            Nincs a keresésnek megfelelő szolgáltatás ennél a típusnál.
-          </p>
-        </div>
-      ))}
 
     </div>
   </section>
@@ -231,6 +169,8 @@ const breadcrumb = {
 
     .model-box {
       text-align: left;
+      text-decoration: none;
+      color: inherit;
       background: white;
       border: 1.5px solid #E2E8F0;
       border-radius: 1rem;
@@ -287,68 +227,10 @@ const breadcrumb = {
   </style>
 
   <script>
-    const select = document.getElementById('model-select') as HTMLSelectElement;
-    const overview = document.getElementById('overview');
-    const details = Array.from(document.querySelectorAll<HTMLElement>('.model-detail'));
-
-    function show(slug: string | null) {
-      const valid = slug && details.some(d => d.dataset.detail === slug);
-      if (valid) {
-        if (overview) overview.hidden = true;
-        details.forEach(d => {
-          d.hidden = d.dataset.detail !== slug;
-          // kereső visszaállítása minden nézetnél
-          const inp = d.querySelector<HTMLInputElement>('.detail-search');
-          if (inp) inp.value = '';
-          d.querySelectorAll<HTMLElement>('.service-card').forEach(c => { c.style.display = ''; });
-          const emptyEl = d.querySelector<HTMLElement>('.detail-empty');
-          if (emptyEl) emptyEl.hidden = true;
-        });
-        if (select) select.value = slug!;
-        const url = new URL(window.location.href);
-        url.searchParams.set('roller', slug!);
-        history.replaceState(null, '', url);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        if (overview) overview.hidden = false;
-        details.forEach(d => { d.hidden = true; });
-        if (select) select.value = '';
-        const url = new URL(window.location.href);
-        url.searchParams.delete('roller');
-        history.replaceState(null, '', url);
-      }
-    }
-
-    select?.addEventListener('change', () => show(select.value || null));
-    document.querySelectorAll<HTMLElement>('[data-goto]').forEach(btn => {
-      btn.addEventListener('click', () => show(btn.dataset.goto || null));
+    // A legördülőből a kiválasztott modell saját aloldalára navigálunk.
+    const select = document.getElementById('model-select') as HTMLSelectElement | null;
+    select?.addEventListener('change', () => {
+      if (select.value) window.location.href = `/szolgaltatasok/${select.value}`;
     });
-    document.querySelectorAll<HTMLElement>('[data-back]').forEach(btn => {
-      btn.addEventListener('click', () => show(null));
-    });
-
-    // Szolgáltatás-kereső a részletes nézeten belül
-    function filterDetail(detail: HTMLElement) {
-      const input = detail.querySelector<HTMLInputElement>('.detail-search');
-      const empty = detail.querySelector<HTMLElement>('.detail-empty');
-      const q = (input?.value || '').toLowerCase().trim();
-      let visible = 0;
-      detail.querySelectorAll<HTMLElement>('.service-card').forEach(card => {
-        const match = !q || (card.dataset.search || '').includes(q);
-        card.style.display = match ? '' : 'none';
-        if (match) visible++;
-      });
-      if (empty) empty.hidden = visible > 0;
-    }
-
-    details.forEach(detail => {
-      const input = detail.querySelector<HTMLInputElement>('.detail-search');
-      input?.addEventListener('input', () => filterDetail(detail));
-    });
-
-    // Deep link: ?roller=slug
-    const params = new URLSearchParams(window.location.search);
-    const pre = params.get('roller');
-    if (pre) show(pre);
   </script>
 </Layout>

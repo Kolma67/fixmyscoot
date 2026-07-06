@@ -48,7 +48,7 @@ const breadcrumb = {
 ---
 
 <Layout
-  title={SITE.name}
+  title="Elektromos roller szerviz Budapest – Ninebot, Kukirin, Xiaomi"
   description={SITE.description}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
@@ -233,7 +233,7 @@ const breadcrumb = {
         {scooters.map(s => {
           const cheapest = Math.min(...s.data.services.map(v => v.price));
           return (
-            <a href={`/szolgaltatasok?roller=${s.id}`} class="model-card">
+            <a href={`/szolgaltatasok/${s.id}`} class="model-card">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.75rem;">
                 <div style="display:flex;align-items:center;gap:0.5rem;">
                   <img src={getBrandLogo(s.data.brand)} data-fallback={getBrandLogoFallback(s.data.brand)} alt={`${s.data.brand} logó`} width="48" height="48" style="width:48px;height:48px;border-radius:0.6rem;flex-shrink:0;object-fit:contain;" loading="lazy" onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback;}" />
