@@ -377,9 +377,11 @@ const breadcrumb = {
     }
     .hero-section > .container { position: relative; z-index: 1; }
 
-    /* Hero vizuál */
-    .hero-visual { display: flex; justify-content: center; align-items: center; margin-top: 0.5rem; }
-    @media (min-width: 768px) { .hero-visual { margin-top: 0; } }
+    /* Hero vizuál: csak asztali nézetben (mobilon rejtve) */
+    .hero-visual { display: none; }
+    @media (min-width: 768px) {
+      .hero-visual { display: flex; justify-content: center; align-items: center; }
+    }
     .hero-visual-card {
       position: relative;
       width: 100%;
@@ -388,12 +390,6 @@ const breadcrumb = {
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    /* Mobilon kisebb roller-kártya, hogy a badge-ek is elférjenek */
-    @media (max-width: 767px) {
-      .hero-visual-card { max-width: 280px; }
-      .hero-badge { min-width: 108px; padding: 0.55rem 0.8rem; }
-      .hero-badge-value { font-size: 1.25rem; }
     }
     /* Izzó (glow) háttér a roller mögött */
     .hero-glow {
