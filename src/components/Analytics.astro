@@ -1,0 +1,55 @@
+---
+// Mérés + konverziókövetés. Minden rész csak akkor tölt be, ha a hozzá tartozó
+// azonosító meg van adva (Netlify env-változó). Lásd: src/config/analytics.ts
+import { ANALYTICS } from '../config/analytics';
+const { ga4Id, googleAdsId, metaPixelId, gscVerification } = ANALYTICS;
+const gtagId = ga4Id || googleAdsId;
+---
+
+{gscVerification && <meta name="google-site-verification" content={gscVerification} />}
+
+{gtagId && (
+  <Fragment>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}></script>
+    <script is:inline define:vars={{ ga4Id, googleAdsId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      if (ga4Id) gtag('config', ga4Id);
+      if (googleAdsId) gtag('config', googleAdsId);
+    </script>
+  </Fragment>
+)}
+
+{metaPixelId && (
+  <script is:inline define:vars={{ metaPixelId }}>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', metaPixelId);
+    fbq('track', 'PageView');
+  </script>
+)}
+
+<!-- Egységes eseménykövetés: biztonságos wrapper + tel:/Viber kattintás -->
+<script is:inline>
+  (function () {
+    function track(name, params) {
+      try {
+        if (window.gtag) window.gtag('event', name, params || {});
+        if (window.fbq) window.fbq('trackCustom', name, params || {});
+      } catch (e) {}
+    }
+    window.fmsTrack = track;
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('tel:') === 0) track('hivas_kattintas');
+      else if (href.indexOf('viber') !== -1) track('viber_kattintas');
+    }, true);
+  })();
+</script>
