@@ -47,7 +47,7 @@ const breadcrumb = {
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} slot="head" />
 
   <!-- Hero -->
-  <section style="background:linear-gradient(135deg,#0F2F6E 0%,#1848A0 100%);color:white;padding:3.5rem 0 3rem;">
+  <section class="hero-gradient" style="color:white;padding:3.5rem 0 3rem;">
     <div class="container" style="max-width:720px;margin:0 auto;text-align:center;">
       <h1 style="font-size:clamp(1.75rem,5vw,2.75rem);font-weight:900;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em;">
         Szolgáltatások és árak
@@ -139,12 +139,12 @@ const breadcrumb = {
           <div class="detail-grid sm:grid-2 lg:grid-3" style="display:grid;gap:1.25rem;grid-template-columns:1fr;">
             {m.services.map(svc => (
               <article class="card service-card" data-search={`${svc.name} ${svc.description}`.toLowerCase()} style="display:flex;flex-direction:column;overflow:hidden;">
-                <!-- kép helye -->
-                <div style="position:relative;aspect-ratio:16/10;background:#EFF2F7;display:flex;align-items:center;justify-content:center;">
+                <!-- kép helye (1:1, szürke termékfotó-háttérhez illesztve) -->
+                <div class="service-media">
                   {svc.image ? (
-                    <img src={svc.image} alt={`${m.model} – ${svc.name}`} loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                    <img src={svc.image} alt={`${m.model} – ${svc.name}`} loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                   ) : null}
-                  <div style={`width:100%;height:100%;${svc.image ? 'display:none;' : 'display:flex;'}align-items:center;justify-content:center;position:absolute;inset:0;color:#1848A0;`}>
+                  <div class="service-media-fallback" style={svc.image ? 'display:none;' : 'display:flex;'}>
                     <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[svc.icon]} />
                   </div>
                 </div>
@@ -184,6 +184,33 @@ const breadcrumb = {
   <style>
     @media (min-width: 640px) { .sm\:grid-2 { grid-template-columns: repeat(2,1fr) !important; } }
     @media (min-width: 1024px) { .lg\:grid-3 { grid-template-columns: repeat(3,1fr) !important; } }
+
+    /* Szolgáltatás termékfotó: 1:1, a fotók szürke hátteréhez illesztve */
+    .service-media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: radial-gradient(circle at 50% 42%, #E1E2E4 0%, #C6C9CD 68%, #B4B7BC 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .service-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .service-media-fallback {
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      color: #1848A0;
+    }
+    /* A kártya sarka: a felső kép kövesse a lekerekítést */
+    .service-card { border-radius: 1rem; }
 
     .model-select {
       width: 100%;
