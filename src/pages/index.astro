@@ -55,8 +55,8 @@ const breadcrumb = {
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} slot="head" />
 
   <!-- ═══════════════════════ HERO ═══════════════════════ -->
-  <section style="background:linear-gradient(135deg,#0F2F6E 0%,#1848A0 50%,#1E5BBF 100%);color:white;padding:5rem 0 4rem;">
-    <div class="container" style="display:grid;gap:2.5rem;align-items:center;" class="md:grid-hero">
+  <section class="hero-section" style="color:white;padding:3.5rem 0 3rem;">
+    <div class="container md:grid-hero" style="display:grid;gap:2.5rem;align-items:center;">
       <div>
         <p style="display:inline-block;background:rgba(255,107,0,0.2);color:#FFA060;font-size:0.8rem;font-weight:700;padding:0.35rem 0.875rem;border-radius:9999px;letter-spacing:0.06em;text-transform:uppercase;border:1px solid rgba(255,107,0,0.35);margin-bottom:1.25rem;">
           {home.heroBadge}
@@ -367,19 +367,33 @@ const breadcrumb = {
       .lg\:grid-3 { grid-template-columns: repeat(3,1fr) !important; }
       .lg\:grid-4 { grid-template-columns: repeat(4,1fr) !important; }
     }
-    /* Hero vizuál: csak asztali nézetben */
-    .hero-visual { display: none; }
-    @media (min-width: 768px) {
-      .hero-visual { display: flex; justify-content: center; align-items: center; }
+    /* Hero szekció: színátmenetes háttér + finom glow */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 78% 30%, rgba(255,107,0,0.22), transparent 45%),
+        linear-gradient(135deg, #0B2560 0%, #1848A0 55%, #1E5BBF 100%);
     }
+    .hero-section > .container { position: relative; z-index: 1; }
+
+    /* Hero vizuál */
+    .hero-visual { display: flex; justify-content: center; align-items: center; margin-top: 0.5rem; }
+    @media (min-width: 768px) { .hero-visual { margin-top: 0; } }
     .hero-visual-card {
       position: relative;
       width: 100%;
-      max-width: 440px;
-      aspect-ratio: 1 / 1;
+      max-width: 400px;
+      aspect-ratio: 4 / 5;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    /* Mobilon kisebb roller-kártya, hogy a badge-ek is elférjenek */
+    @media (max-width: 767px) {
+      .hero-visual-card { max-width: 280px; }
+      .hero-badge { min-width: 108px; padding: 0.55rem 0.8rem; }
+      .hero-badge-value { font-size: 1.25rem; }
     }
     /* Izzó (glow) háttér a roller mögött */
     .hero-glow {
