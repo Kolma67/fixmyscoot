@@ -17,8 +17,13 @@ const jsonLd = {
   "name": SITE.name,
   "description": SITE.description,
   "url": SITE.url,
+  "image": `${SITE.url}/images/og-default.jpg`,
   "telephone": SITE.phone,
   "email": SITE.email,
+  "areaServed": [
+    { "@type": "City", "name": "Budapest" },
+    { "@type": "AdministrativeArea", "name": "Óbuda (III. kerület)" },
+  ],
   "address": {
     "@type": "PostalAddress",
     "streetAddress": SITE.address.street,
@@ -45,6 +50,44 @@ const breadcrumb = {
   "@type": "BreadcrumbList",
   "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Főoldal", "item": SITE.url }],
 };
+
+// Gyakori kérdések (megjelenik az oldalon ÉS a Google találatokban – FAQPage séma)
+const faq = [
+  {
+    q: 'Milyen elektromos rollereket javítotok?',
+    a: 'Ninebot, Kukirin és a legtöbb Xiaomi-kompatibilis (replika) modell javításával, karbantartásával és fejlesztésével foglalkozom. Ha bizonytalan vagy, hívj – megmondom, tudok-e segíteni.',
+  },
+  {
+    q: 'Kell előre időpontot foglalni?',
+    a: 'Ajánlott, hogy biztosan rád tudjak időt szánni. Az időpontfoglalás online, pár perc alatt kitölthető, és telefonon vagy e-mailben visszaigazolom.',
+  },
+  {
+    q: 'Mennyibe kerül egy javítás?',
+    a: 'Az árak roller-típusonként és szolgáltatásonként átláthatóan megtalálhatók a Szolgáltatások oldalon. Pontos árat mindig a diagnózis után mondok – csak azt cserélem, ami valóban szükséges.',
+  },
+  {
+    q: 'Mennyi idő egy javítás?',
+    a: 'Az egyszerűbb munkák (pl. gumicsere, fékállítás) gyakran akár aznap elkészülnek, az összetettebbek (pl. vezérlő, akkumulátor) egyeztetés szerint. A várható időtartam minden szolgáltatásnál fel van tüntetve.',
+  },
+  {
+    q: 'Hol található a szerviz?',
+    a: `A szerviz Budapesten, Óbudán (III. kerület) van: ${SITE.address.full}. Térkép és elérhetőségek a Kapcsolat oldalon.`,
+  },
+  {
+    q: 'Foglalkoztok tuninggal és fejlesztéssel is?',
+    a: 'Igen – akkumulátorépítés, teljesítménynövelés, szoftveres tuning, egyedi világítás és más fejlesztések is elérhetők. Részletek a Tuning oldalon, ajánlatot pedig a kapcsolati űrlapon kérhetsz.',
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a },
+  })),
+};
 ---
 
 <Layout
@@ -53,6 +96,7 @@ const breadcrumb = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <!-- ═══════════════════════ HERO ═══════════════════════ -->
   <section class="hero-section" style="color:white;padding:3.5rem 0 3rem;">
@@ -307,6 +351,29 @@ const breadcrumb = {
     </div>
   </section>
 
+  <!-- ═══════════════════════ GYAKORI KÉRDÉSEK ═══════════════════════ -->
+  <section class="section">
+    <div class="container" style="max-width:780px;margin:0 auto;">
+      <h2 style="font-size:clamp(1.5rem,4vw,2rem);font-weight:900;color:#1E293B;text-align:center;margin-bottom:0.75rem;">
+        Gyakori kérdések
+      </h2>
+      <p style="color:#64748B;text-align:center;margin-bottom:2rem;">
+        A leggyakrabban felmerülő kérdések az elektromos roller szervizről.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        {faq.map(item => (
+          <details class="faq-item">
+            <summary class="faq-q">
+              <span>{item.q}</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-a">{item.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════════════════ CONTACT SUMMARY ═══════════════════════ -->
   <section class="section" style="background:#F8FAFC;">
     <div class="container">
@@ -453,6 +520,29 @@ const breadcrumb = {
       font-variant-numeric: tabular-nums;
     }
     .stat-label { font-size: 0.9rem; color: #94A3B8; margin-top: 0.5rem; }
+
+    /* GYIK akkordeon */
+    .faq-item {
+      background: white;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 0.875rem;
+      overflow: hidden;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .faq-item[open] { border-color: #BFD4F5; box-shadow: 0 6px 18px rgba(24,72,160,0.07); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1.05rem 1.25rem;
+      font-size: 1rem; font-weight: 700; color: #1E293B;
+      cursor: pointer; list-style: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-icon { flex-shrink: 0; color: #1848A0; transition: transform 200ms; }
+    .faq-item[open] .faq-icon { transform: rotate(180deg); }
+    .faq-a {
+      padding: 0 1.25rem 1.15rem;
+      color: #64748B; line-height: 1.7; font-size: 0.95rem;
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .hero-glow { animation: none; }
