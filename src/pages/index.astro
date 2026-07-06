@@ -80,33 +80,32 @@ const breadcrumb = {
         </div>
       </div>
 
-      <!-- Hero visual: feltöltött kép vagy stilizált roller rajz + lebegő stat-kártyák -->
+      <!-- Hero visual: háttér nélküli roller kép (glow háttérrel) + lebegő stat-kártyák -->
       <div class="hero-visual">
         <div class="hero-visual-card">
-          {home.heroImage ? (
-            <img src={home.heroImage} alt="Elektromos roller szerviz" class="hero-photo" />
-          ) : (
-            <svg class="hero-svg" viewBox="0 0 200 200" width="200" height="200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="50" cy="150" r="35" stroke="white" stroke-width="6"/>
-              <circle cx="50" cy="150" r="10" fill="white"/>
-              <circle cx="160" cy="150" r="35" stroke="white" stroke-width="6"/>
-              <circle cx="160" cy="150" r="10" fill="white"/>
-              <path d="M50 115 L80 60 L130 60 L160 115" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M80 60 L90 20 L120 20" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="115" y="14" width="30" height="12" rx="6" fill="white"/>
-              <path d="M105 60 L160 60" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            </svg>
-          )}
+          <div class="hero-glow" aria-hidden="true"></div>
+          <img src={home.heroImage || '/images/uploads/hero-roller.png'} alt="Elektromos roller" class="hero-photo"
+            onerror="this.style.display='none';var s=this.parentElement.querySelector('.hero-svg');if(s)s.style.display='block';" />
+          <svg class="hero-svg" style="display:none;" viewBox="0 0 200 200" width="200" height="200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="150" r="35" stroke="white" stroke-width="6"/>
+            <circle cx="50" cy="150" r="10" fill="white"/>
+            <circle cx="160" cy="150" r="35" stroke="white" stroke-width="6"/>
+            <circle cx="160" cy="150" r="10" fill="white"/>
+            <path d="M50 115 L80 60 L130 60 L160 115" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M80 60 L90 20 L120 20" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="115" y="14" width="30" height="12" rx="6" fill="white"/>
+            <path d="M105 60 L160 60" stroke="white" stroke-width="8" stroke-linecap="round"/>
+          </svg>
 
           {home.stats?.[0] && (
             <div class="hero-badge hero-badge-tl">
-              <span class="hero-badge-value">{home.stats[0].value}</span>
+              <span class="hero-badge-value" data-count>{home.stats[0].value}</span>
               <span class="hero-badge-label">{home.stats[0].label}</span>
             </div>
           )}
           {home.stats?.[1] && (
             <div class="hero-badge hero-badge-br">
-              <span class="hero-badge-value">{home.stats[1].value}</span>
+              <span class="hero-badge-value" data-count>{home.stats[1].value}</span>
               <span class="hero-badge-label">{home.stats[1].label}</span>
             </div>
           )}
@@ -140,13 +139,13 @@ const breadcrumb = {
   </section>
 
   <!-- ═══════════════════════ TRUST STRIP ═══════════════════════ -->
-  <section style="background:#0F172A;color:white;padding:3rem 0;">
-    <div class="container">
+  <section class="trust-strip">
+    <div class="container" style="position:relative;z-index:1;">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center;">
         {home.stats.map(stat => (
           <div>
-            <p style="font-size:clamp(1.75rem,4vw,2.5rem);font-weight:900;color:#FF6B00;line-height:1;">{stat.value}</p>
-            <p style="font-size:0.9rem;color:#94A3B8;margin-top:0.375rem;">{stat.label}</p>
+            <p class="stat-value" data-count>{stat.value}</p>
+            <p class="stat-label">{stat.label}</p>
           </div>
         ))}
       </div>
@@ -376,38 +375,78 @@ const breadcrumb = {
     .hero-visual-card {
       position: relative;
       width: 100%;
-      max-width: 420px;
-      aspect-ratio: 4 / 3;
-      border-radius: 1.5rem;
-      background: linear-gradient(150deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      max-width: 440px;
+      aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: visible;
     }
-    .hero-svg { opacity: 0.85; }
+    /* Izzó (glow) háttér a roller mögött */
+    .hero-glow {
+      position: absolute;
+      inset: 5%;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 52%, rgba(255,107,0,0.55) 0%, rgba(255,107,0,0.18) 42%, rgba(24,72,160,0) 70%);
+      filter: blur(30px);
+      animation: heroPulse 4.5s ease-in-out infinite;
+    }
+    @keyframes heroPulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50%      { opacity: 1;   transform: scale(1.08); }
+    }
     .hero-photo {
+      position: relative; z-index: 1;
       width: 100%; height: 100%;
-      object-fit: cover;
-      border-radius: 1.5rem;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 40px rgba(0,0,0,0.45));
     }
+    .hero-svg { position: relative; z-index: 1; opacity: 0.9; }
     .hero-badge {
       position: absolute;
+      z-index: 2;
       background: white;
       border-radius: 0.875rem;
       padding: 0.7rem 1rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
       display: flex;
       flex-direction: column;
       line-height: 1.1;
-      min-width: 118px;
+      min-width: 122px;
     }
-    .hero-badge-tl { top: -0.9rem; left: -0.9rem; }
-    .hero-badge-br { bottom: -0.9rem; right: -0.9rem; }
-    .hero-badge-value { font-size: 1.35rem; font-weight: 900; color: #1848A0; }
+    .hero-badge-tl { top: -0.6rem; left: -1.1rem; border-top: 3px solid #FF6B00; }
+    .hero-badge-br { bottom: -0.6rem; right: -1.1rem; border-top: 3px solid #1848A0; }
+    .hero-badge-value { font-size: 1.5rem; font-weight: 900; color: #1848A0; font-variant-numeric: tabular-nums; }
+    .hero-badge-tl .hero-badge-value { color: #FF6B00; }
     .hero-badge-label { font-size: 0.72rem; font-weight: 600; color: #64748B; margin-top: 0.15rem; }
+
+    /* Trust strip: színátmenetes glow háttér + izzó, felszámláló statisztikák */
+    .trust-strip {
+      position: relative;
+      overflow: hidden;
+      background: #0F172A;
+      color: white;
+      padding: 3.5rem 0;
+    }
+    .trust-strip::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(circle at 18% 50%, rgba(255,107,0,0.18), transparent 40%),
+        radial-gradient(circle at 82% 50%, rgba(24,72,160,0.30), transparent 45%);
+    }
+    .stat-value {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #FF6B00;
+      line-height: 1;
+      text-shadow: 0 0 26px rgba(255,107,0,0.45);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-label { font-size: 0.9rem; color: #94A3B8; margin-top: 0.5rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-glow { animation: none; }
+    }
 
     /* Szolgáltatás-kártyák */
     .service-card {
@@ -471,4 +510,41 @@ const breadcrumb = {
       font-size: 0.875rem;
     }
   </style>
+
+  <!-- Animált felszámláló a statisztikákhoz (láthatóvá váláskor indul) -->
+  <script>
+    (() => {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function animateCount(el) {
+        const raw = el.dataset.countText || el.textContent.trim();
+        el.dataset.countText = raw;
+        const m = raw.match(/(\d[\d\s.,]*)/);
+        if (!m) return;
+        const target = parseInt(m[1].replace(/[\s.,]/g, ''), 10);
+        // Évszámot (>= 1000) nem animálunk, hogy ne tűnjön hibának
+        if (isNaN(target) || target >= 1000 || prefersReduced) { el.textContent = raw; return; }
+        const prefix = raw.slice(0, m.index);
+        const suffix = raw.slice(m.index + m[1].length);
+        const dur = 1400;
+        const start = performance.now();
+        el.textContent = prefix + '0' + suffix;
+        function tick(now) {
+          const p = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = raw;
+        }
+        requestAnimationFrame(tick);
+      }
+      const els = document.querySelectorAll('[data-count]');
+      if (!els.length) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { animateCount(e.target); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.4 });
+      els.forEach(el => io.observe(el));
+    })();
+  </script>
 </Layout>
