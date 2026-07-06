@@ -16,7 +16,7 @@
 
 backend:
   name: github
-  repo: felhasznalonev/fixmyscoot-website   # TODO: írd át a saját GitHub tárolódra
+  repo: Kolma67/fixmyscoot
   branch: main
 
 # Ahová a böngészőből feltöltött képek kerülnek:
