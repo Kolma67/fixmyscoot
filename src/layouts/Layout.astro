@@ -56,8 +56,12 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} – ${SITE.name}`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Favicon -->
+    <!-- Favicon (PNG a Google keresési ikonhoz, SVG a modern böngészőknek) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/favicon-96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Theme color (mobile browser chrome) -->
     <meta name="theme-color" content="#1848A0" />
@@ -74,5 +78,26 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} – ${SITE.name}`;
       <slot />
     </main>
     <Footer />
+
+    <!-- Lebegő hívás-gomb (csak mobilon) -->
+    <a href={`tel:${SITE.phone}`} class="floating-call" aria-label={`Hívás: ${SITE.phoneDisplay}`}>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.13 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    </a>
+    <style>
+      .floating-call {
+        position: fixed; right: 1rem; bottom: 1.25rem; z-index: 60;
+        width: 56px; height: 56px; border-radius: 50%;
+        background: linear-gradient(135deg, #FF8A2B, #E55A00);
+        color: white; display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 24px rgba(255,107,0,0.5);
+        animation: callPulse 2.5s ease-in-out infinite;
+      }
+      @media (min-width: 768px) { .floating-call { display: none; } }
+      @keyframes callPulse {
+        0%,100% { box-shadow: 0 8px 24px rgba(255,107,0,0.5); }
+        50%     { box-shadow: 0 8px 24px rgba(255,107,0,0.5), 0 0 0 12px rgba(255,107,0,0.12); }
+      }
+      @media (prefers-reduced-motion: reduce) { .floating-call { animation: none; } }
+    </style>
   </body>
 </html>

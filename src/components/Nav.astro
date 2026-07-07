@@ -44,7 +44,11 @@ function isActive(href: string) {
       ))}
     </ul>
 
-    <!-- Desktop CTA -->
+    <!-- Desktop: telefonszám + CTA -->
+    <a href={`tel:${SITE.phone}`} class="nav-phone" aria-label="Hívás">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.13 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      {SITE.phoneDisplay}
+    </a>
     <a href="/idopontfoglalas" class="btn-primary nav-cta" style="padding:0.5rem 1.25rem;font-size:0.9rem;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
@@ -116,6 +120,7 @@ function isActive(href: string) {
   /* Mobil: hamburger látszik, desktop menü/CTA rejtve */
   .nav-desktop { display: none; }
   .nav-cta { display: none !important; }
+  .nav-phone { display: none; }
   .nav-burger { display: flex; }
 
   /* Asztali (>=768px): fordítva */
@@ -124,5 +129,15 @@ function isActive(href: string) {
     .nav-cta { display: inline-flex !important; }
     .nav-burger { display: none; }
     #mobile-menu { display: none !important; }
+  }
+  /* Telefonszám csak szélesebb desktopon, hogy ne zsúfolja a navot */
+  @media (min-width: 1000px) {
+    .nav-phone {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-weight: 800; font-size: 0.95rem; color: #1848A0;
+      text-decoration: none; white-space: nowrap; margin-left: auto;
+      margin-right: 0.875rem;
+    }
+    .nav-phone:hover { color: #FF6B00; }
   }
 </style>
