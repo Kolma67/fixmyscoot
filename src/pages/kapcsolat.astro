@@ -311,7 +311,8 @@ const localBusiness = {
           qForm.hidden = true;
           if (qSuccess) qSuccess.hidden = false;
           qSuccess?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          if (window.fmsTrack) window.fmsTrack('ajanlatkeres_kuldes');
+          if (window.fmsConversion) window.fmsConversion('ajanlatkeres');
+          else if (window.fmsTrack) window.fmsTrack('ajanlatkeres_kuldes');
         } else {
           throw new Error('submit failed');
         }

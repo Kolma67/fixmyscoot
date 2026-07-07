@@ -332,7 +332,8 @@ const modelData = scooters.map(s => ({
         if (res.ok) {
           form.hidden = true;
           if (successState) successState.hidden = false;
-          if (window.fmsTrack) window.fmsTrack('foglalas_kuldes');
+          if (window.fmsConversion) window.fmsConversion('foglalas');
+          else if (window.fmsTrack) window.fmsTrack('foglalas_kuldes');
         } else {
           throw new Error('submit failed');
         }

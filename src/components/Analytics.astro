@@ -2,8 +2,11 @@
 // Mérés + konverziókövetés. Minden rész csak akkor tölt be, ha a hozzá tartozó
 // azonosító meg van adva (Netlify env-változó). Lásd: src/config/analytics.ts
 import { ANALYTICS } from '../config/analytics';
-const { ga4Id, googleAdsId, metaPixelId, gscVerification } = ANALYTICS;
+const { ga4Id, googleAdsId, googleAdsConversionLabel, metaPixelId, gscVerification } = ANALYTICS;
 const gtagId = ga4Id || googleAdsId;
+const adsSendTo = googleAdsId && googleAdsConversionLabel
+  ? `${googleAdsId}/${googleAdsConversionLabel}`
+  : '';
 ---
 
 {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
@@ -11,13 +14,14 @@ const gtagId = ga4Id || googleAdsId;
 {gtagId && (
   <Fragment>
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}></script>
-    <script is:inline define:vars={{ ga4Id, googleAdsId }}>
+    <script is:inline define:vars={{ ga4Id, googleAdsId, adsSendTo }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       window.gtag = gtag;
       gtag('js', new Date());
       if (ga4Id) gtag('config', ga4Id);
       if (googleAdsId) gtag('config', googleAdsId);
+      if (adsSendTo) document.documentElement.setAttribute('data-ads-send-to', adsSendTo);
     </script>
   </Fragment>
 )}
@@ -44,6 +48,20 @@ const gtagId = ga4Id || googleAdsId;
       } catch (e) {}
     }
     window.fmsTrack = track;
+
+    // Konverzió: sikeres foglalás / ajánlatkérés esetén hívjuk.
+    // name pl. 'foglalas' vagy 'ajanlatkeres' (GA4 + Meta eseménynévhez).
+    window.fmsConversion = function (name) {
+      try {
+        var sendTo = document.documentElement.getAttribute('data-ads-send-to') || '';
+        if (window.gtag && sendTo) {
+          window.gtag('event', 'conversion', { send_to: sendTo, value: 1.0, currency: 'HUF' });
+        }
+        if (window.fbq) window.fbq('track', 'Lead');
+        track(name || 'lead');
+      } catch (e) {}
+    };
+
     document.addEventListener('click', function (e) {
       var a = e.target && e.target.closest ? e.target.closest('a') : null;
       if (!a) return;

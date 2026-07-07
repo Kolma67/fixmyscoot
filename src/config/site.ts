@@ -5,7 +5,7 @@ export const SITE = {
   url: 'https://fixmyscoot.hu',
   phone: '+36304703778',
   phoneDisplay: '+36 30 470 3778',
-  email: 'info@fixmyscoot.hu', // TODO: add real email
+  email: 'info@fixmyscoot.hu',
   address: {
     street: 'Frigyes utca 10.',
     city: 'Budapest',
@@ -15,8 +15,8 @@ export const SITE = {
     googleMapsQuery: '1039+Budapest+Frigyes+utca+10',
   },
   geo: {
-    latitude: 47.5588, // TODO: replace with exact coordinates
-    longitude: 19.0397,
+    latitude: 47.601509,
+    longitude: 19.091395,
   },
   priceRange: '$$',
   socialViber: 'viber://chat?number=%2B36304703778',
