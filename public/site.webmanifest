@@ -1,0 +1,14 @@
+{
+  "name": "Fix My Scoot",
+  "short_name": "Fix My Scoot",
+  "description": "Elektromos roller szerviz Budapest – Ninebot, Kukirin, Xiaomi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1848A0",
+  "icons": [
+    { "src": "/favicon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/favicon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/favicon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any maskable" }
+  ]
+}
