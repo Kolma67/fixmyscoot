@@ -1,7 +1,7 @@
 {
   "heroBadge": "Budapest, III. kerület",
   "heroTitle1": "Elektromos roller",
-  "heroTitle2": "javítás és szerviz",
+  "heroTitle2": "szerviz és fejlesztés",
   "heroTitle3": "Budapesten",
   "heroSubtitle": "Ninebot, Kukirin és Xiaomi-kompatibilis rollerek szakszerű javítása, karbantartása és fejlesztése. Gyors átfutás, átlátható árak.",
   "heroImage": "",
@@ -9,9 +9,18 @@
   "heroCtaSecondary": "Összes szolgáltatás",
   "brandStripTitle": "Márkák, amelyekre specializálódtam",
   "stats": [
-    { "value": "200+", "label": "Javított roller" },
-    { "value": "100%", "label": "Elégedett ügyfél" },
-    { "value": "2026", "label": "Óta" }
+    {
+      "value": "200+",
+      "label": "Javított roller"
+    },
+    {
+      "value": "100%",
+      "label": "Elégedett ügyfél"
+    },
+    {
+      "value": "2026",
+      "label": "Óta"
+    }
   ],
   "modelsTitle": "Mely rollerekhez értek?",
   "modelsSubtitle": "Válaszd ki a rollered típusát, és azonnal látod a hozzá tartozó szolgáltatásokat és pontos árakat.",
