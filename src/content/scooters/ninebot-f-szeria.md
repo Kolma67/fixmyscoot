@@ -4,12 +4,18 @@ brand: Ninebot
 order: 2
 image: /images/scooters/ninebot-f-szeria.jpg
 services:
-  - name: Külső
+  - name: Külső és Belső (ha van)
     price: 15000
     note: ''
     description: ''
     duration: ''
     image: /images/uploads/segway-ninebot-max-g30-tyre-6070-65-826307.webp
+  - name: Belső
+    price: 9500
+    note: ''
+    description: ''
+    duration: 30-60 perc
+    image: /images/uploads/g2max-belső.jpg
   - name: Hátsó sárvédő + lámpa
     price: 16000
     note: ''
@@ -44,9 +50,12 @@ services:
     price: 14500
     note: ''
     description: ''
+    duration: ''
     image: /images/uploads/fékkar-g30.jpg
   - name: Kijelző csere
     price: 29000
+    note: ''
+    description: ''
     duration: ''
     image: /images/uploads/képernyő-g30.jpg
   - name: Kerék csapágy (motorkerék)
