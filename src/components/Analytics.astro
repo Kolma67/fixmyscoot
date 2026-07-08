@@ -14,28 +14,52 @@ const adsSendTo = googleAdsId && googleAdsConversionLabel
 {gtagId && (
   <Fragment>
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}></script>
-    <script is:inline define:vars={{ ga4Id, googleAdsId, adsSendTo }}>
+    <script is:inline define:vars={{ ga4Id, googleAdsId, adsSendTo, metaPixelId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       window.gtag = gtag;
+
+      // GDPR: alapból minden tárolás TILTVA (Google Consent Mode v2).
+      // A gtag ilyenkor sütimentes jelzéseket küld; teljes mérés csak
+      // "Elfogadom" után indul.
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
+
+      var GRANT = { ad_storage:'granted', analytics_storage:'granted', ad_user_data:'granted', ad_personalization:'granted' };
+      var stored = null;
+      try { stored = localStorage.getItem('fms-cookie-consent'); } catch (e) {}
+      if (stored === 'granted') gtag('consent', 'update', GRANT);
+
       gtag('js', new Date());
       if (ga4Id) gtag('config', ga4Id);
       if (googleAdsId) gtag('config', googleAdsId);
       if (adsSendTo) document.documentElement.setAttribute('data-ads-send-to', adsSendTo);
+
+      // Meta Pixel csak hozzájárulás után indul (nincs beépített consent mode-ja).
+      window.fmsInitPixel = function () {
+        if (!metaPixelId || window.__fmsPixelReady) return;
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+          n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+          document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        window.fbq('init', metaPixelId);
+        window.fbq('track', 'PageView');
+        window.__fmsPixelReady = true;
+      };
+
+      // A süti-sáv gombjai ezeket hívják.
+      window.fmsGrantConsent = function () { gtag('consent', 'update', GRANT); window.fmsInitPixel(); };
+      window.fmsDenyConsent = function () { /* marad denied */ };
+
+      if (stored === 'granted') window.fmsInitPixel();
     </script>
   </Fragment>
-)}
-
-{metaPixelId && (
-  <script is:inline define:vars={{ metaPixelId }}>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-      document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', metaPixelId);
-    fbq('track', 'PageView');
-  </script>
 )}
 
 <!-- Egységes eseménykövetés: biztonságos wrapper + tel:/Viber kattintás -->

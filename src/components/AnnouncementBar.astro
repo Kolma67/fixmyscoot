@@ -1,0 +1,28 @@
+---
+// Felső sáv – Sveltia CMS-ből szerkeszthető (src/data/settings.json).
+import settings from '../data/settings.json';
+const show = settings.announcementEnabled && settings.announcementText?.trim();
+---
+{show && (
+  <div class="announcement-bar" role="status">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span>{settings.announcementText}</span>
+  </div>
+)}
+
+<style>
+  .announcement-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #0F2F6E 0%, #1848A0 100%);
+    color: #EAF1FF;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+  .announcement-bar svg { flex-shrink: 0; opacity: 0.85; }
+</style>

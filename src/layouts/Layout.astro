@@ -2,6 +2,8 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { SITE } from '../config/site';
 import '../styles/global.css';
 
@@ -75,11 +77,13 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} – ${SITE.name}`;
     <Analytics />
   </head>
   <body>
+    <AnnouncementBar />
     <Nav />
     <main id="main-content">
       <slot />
     </main>
     <Footer />
+    <CookieConsent />
 
     <!-- Lebegő hívás-gomb (csak mobilon) -->
     <a href={`tel:${SITE.phone}`} class="floating-call" aria-label={`Hívás: ${SITE.phoneDisplay}`}>

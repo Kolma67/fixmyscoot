@@ -1,0 +1,73 @@
+---
+// Süti-hozzájárulás sáv. Csak akkor jelenik meg, ha a látogató még nem döntött.
+// A méréshez (GA4 / Google Ads / Meta Pixel) a hozzájárulás Google Consent
+// Mode v2-n keresztül kötődik – lásd Analytics.astro.
+---
+<div id="cookie-consent" class="cc" hidden>
+  <div class="cc-inner">
+    <p class="cc-text">
+      Sütiket használunk a weboldal működéséhez és a forgalom méréséhez.
+      A részletekért lásd az
+      <a href="/adatkezelesi-tajekoztato">adatkezelési tájékoztatót</a>.
+    </p>
+    <div class="cc-actions">
+      <button type="button" id="cc-decline" class="cc-btn cc-decline">Elutasítom</button>
+      <button type="button" id="cc-accept" class="cc-btn cc-accept">Elfogadom</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'fms-cookie-consent';
+    var bar = document.getElementById('cookie-consent');
+    var choice = null;
+    try { choice = localStorage.getItem(KEY); } catch (e) {}
+
+    if (!choice && bar) bar.hidden = false;
+
+    function decide(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      if (value === 'granted' && typeof window.fmsGrantConsent === 'function') window.fmsGrantConsent();
+      if (value === 'denied' && typeof window.fmsDenyConsent === 'function') window.fmsDenyConsent();
+      if (bar) bar.hidden = true;
+    }
+
+    var accept = document.getElementById('cc-accept');
+    var decline = document.getElementById('cc-decline');
+    if (accept) accept.addEventListener('click', function () { decide('granted'); });
+    if (decline) decline.addEventListener('click', function () { decide('denied'); });
+  })();
+</script>
+
+<style>
+  .cc {
+    position: fixed;
+    left: 1rem; right: 1rem; bottom: 1rem;
+    z-index: 70;
+    background: white;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 1rem;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+    padding: 1rem 1.25rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .cc-inner { display: flex; flex-direction: column; gap: 0.875rem; }
+  .cc-text { font-size: 0.85rem; color: #475569; line-height: 1.55; margin: 0; }
+  .cc-text a { color: #1848A0; font-weight: 600; }
+  .cc-actions { display: flex; gap: 0.625rem; justify-content: flex-end; }
+  .cc-btn {
+    font-size: 0.9rem; font-weight: 700; border-radius: 0.625rem;
+    padding: 0.55rem 1.1rem; cursor: pointer; border: 1.5px solid transparent;
+    font-family: inherit; transition: filter 150ms, background 150ms;
+  }
+  .cc-decline { background: white; color: #64748B; border-color: #E2E8F0; }
+  .cc-decline:hover { background: #F8FAFC; }
+  .cc-accept { background: #FF6B00; color: white; }
+  .cc-accept:hover { filter: brightness(1.05); }
+  @media (min-width: 560px) {
+    .cc-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+    .cc-actions { flex-shrink: 0; }
+  }
+</style>

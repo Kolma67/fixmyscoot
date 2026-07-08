@@ -75,6 +75,17 @@ collections:
       - { label: "Sorrend", name: order, widget: number, value_type: int, default: 99 }
       - { label: "Választható opciók", name: options, widget: list, hint: "Minden elem egy opció, pipával jelenik meg." }
 
+  # ═══════════════ BEÁLLÍTÁSOK (felső sáv) ═══════════════
+  - name: settings
+    label: "Beállítások"
+    files:
+      - name: general
+        label: "Felső sáv / Általános"
+        file: "src/data/settings.json"
+        fields:
+          - { label: "Felső sáv megjelenítése", name: announcementEnabled, widget: boolean, default: true }
+          - { label: "Felső sáv szövege", name: announcementText, widget: string, required: false, hint: "Pl. nyitvatartás, elérhetőség, akció. Ha kikapcsolod vagy üresen hagyod, nem jelenik meg." }
+
   # ═══════════════ FŐOLDAL ═══════════════
   - name: home
     label: "Főoldal"
