@@ -8,31 +8,31 @@ services:
     price: 18400
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-50 perc
     image: /images/uploads/g2m-tyre.jpg
   - name: Belső
     price: 10400
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-50 perc
     image: /images/uploads/g2max-belső.jpg
   - name: Féktárcsa
     price: 12000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 10-20 perc
     image: /images/uploads/g20-féktárcsa.avif
   - name: Fékbetét
     price: 6400
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 10-20 perc
     image: /images/uploads/g4-brake pads.jpg
   - name: Hátsó lámpa
     price: 5600
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 15-30 perc
     image: /images/uploads/g2master-backlamp.jpg
   - name: Vezérlő elektrónika
     price: 40000
