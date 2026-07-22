@@ -8,69 +8,78 @@ services:
     price: 15000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-45 perc
     image: /images/uploads/segway-ninebot-max-g30-tyre-6070-65-826307.webp
   - name: Hátsó sárvédő + lámpa + merevítő
     price: 16000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-45 perc
     image: /images/uploads/g30-sárv+lámpa+merevítő.webp
   - name: Tömörgumi
     price: 20000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 55-75 perc
     image: /images/uploads/g30-tömörgumi.webp
   - name: Hátsó lámpa
     price: 8000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-45 perc
     image: /images/uploads/g30-lámpa-hátsó.jpg
   - name: Vezérlő elektrónika
     price: 39000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 55-75 perc
     image: /images/uploads/g30-controller.jpg
   - name: Gázkar
     price: 15000
     note: ''
     description: ''
+    duration: kb. 15-25 perc
     image: /images/uploads/gázkar-g30.jpg
   - name: Fékkar
     price: 15500
-    duration: ''
+    note: ''
+    description: ''
+    duration: kb. 15-25 perc
     image: /images/uploads/fékkar-g30.jpg
   - name: Kijelző csere
     price: 29000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-45 perc
     image: /images/uploads/képernyő-g30.jpg
   - name: Kerék csapágy (motorkerék)
     price: 22000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-75 perc
     image: /images/uploads/g30-csapágyak.jpg
   - name: Kerék csapágy
     price: 14000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 25-75 perc
     image: /images/uploads/g30-csapágyak.jpg
   - name: Fékállítás
     price: 4500
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 15-25 perc
     image: /images/uploads/g30-fékállítás.avif
   - name: Kitámasztócsere
     price: 9000
     note: ''
     description: ''
-    duration: ''
+    duration: kb. 15-25 perc
     image: /images/uploads/g30-kickstand.jpg
+  - name: Felfüggesztés zsírozása
+    price: 8500
+    note: ''
+    description: ''
+    duration: kb. 35-55 perc
+    image: /images/uploads/Gemini_Generated_Image_54ab8254ab8254ab.png
 ---
