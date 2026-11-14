@@ -326,7 +326,7 @@ V.settings = () => `<div class="head"><div><h1>Settings</h1><p class="muted">Dat
   <div class="grid g2">
     <div class="card"><h2>Backup</h2><p class="muted small">Optional: download a copy of everything, or restore one.</p>
       <div class="chips mt"><button data-act="export">Export JSON</button><label class="btn" style="cursor:pointer">Import JSON<input type="file" accept="application/json" data-change="import" hidden></label></div></div>
-    <div class="card"><h2>Access</h2><p class="muted small">The password is set in Netlify (KOLSTATS_PASSWORD).</p>
+    <div class="card"><h2>Access</h2><p class="muted small">To change the password, set KOLSTATS_PASSWORD in Netlify.</p>
       <div class="chips mt"><button data-act="lock">Lock this device</button><button class="danger" data-act="reset">Erase all data</button></div></div>
   </div>`;
 

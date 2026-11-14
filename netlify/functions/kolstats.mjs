@@ -1,5 +1,6 @@
 // Private storage for /kolstats. Every request must carry the password
-// (set as the KOLSTATS_PASSWORD environment variable in Netlify — never in this repo).
+// The built-in default is visible in this public repo (owner's choice); setting a
+// KOLSTATS_PASSWORD environment variable in Netlify overrides it with a private one.
 import { getStore } from '@netlify/blobs';
 import { createHash, timingSafeEqual } from 'node:crypto';
 
@@ -51,6 +52,6 @@ export async function handle(req, ip, store, password) {
 }
 
 export default (req, context) =>
-  handle(req, context.ip, getStore({ name: 'kolstats', consistency: 'strong' }), process.env.KOLSTATS_PASSWORD);
+  handle(req, context.ip, getStore({ name: 'kolstats', consistency: 'strong' }), process.env.KOLSTATS_PASSWORD || 'kol');
 
 export const config = { path: '/kolstats/api' };
