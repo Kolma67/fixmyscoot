@@ -2,7 +2,7 @@
 'use strict';
 
 /* ---------- helpers ---------- */
-const KEY = 'kolstats.v1', UNLOCK = 'kolstats.unlocked';
+const OLD_KEY = 'kolstats.v1', PW_KEY = 'kolstats.pw', API = '/kolstats/api';
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const uid = () => Math.random().toString(36).slice(2, 9);
@@ -36,7 +36,7 @@ const GOAL = { bench: 140, runMin: 60, hr: 140, exam: 90 };
 function defaults() {
   const t = today();
   return {
-    v: 1, auth: null,
+    v: 1,
     workout: { weeks: {}, lifts: [{ id: uid(), date: t, ex: 'Bench press', w: 100, reps: 6 }], runs: [] },
     exam: { subjects: { matek: { topics: [], mocks: [] }, tori: { topics: [], mocks: [] }, magyar: { topics: [], mocks: [] } } },
     work: { goals: [
@@ -57,38 +57,80 @@ function defaults() {
     ],
   };
 }
-let S;
-function load() {
-  try { S = JSON.parse(localStorage.getItem(KEY)); } catch { S = null; }
-  if (!S || S.v !== 1) S = defaults();
-}
-const save = () => localStorage.setItem(KEY, JSON.stringify(S));
+let S = null;
 const ui = { macroDate: today(), subj: 'matek' };
 
+/* ---------- online storage ---------- */
+let pw = null, rev = 0, dirty = false, saving = false, timer = null;
+let fade = null;
+const status = (t, bad) => { clearTimeout(fade); const el = $('#sync'); el.textContent = t; el.classList.toggle('bad', !!bad); el.hidden = !t; };
+const api = (method, body, keepalive) => fetch(API, {
+  method, cache: 'no-store', keepalive: !!keepalive,
+  headers: { authorization: 'Bearer ' + encodeURIComponent(pw), 'content-type': 'application/json' },
+  body: body ? JSON.stringify(body) : undefined,
+});
+function save() { dirty = true; status('Saving…'); clearTimeout(timer); timer = setTimeout(push, 500); }
+async function push(force) {
+  clearTimeout(timer); timer = null;
+  if (saving) return;
+  saving = true; dirty = false;
+  try {
+    const r = await api('PUT', { rev, data: S, force: !!force });
+    if (r.ok) { rev = (await r.json()).rev; status('Saved'); fade = setTimeout(() => status(''), 1500); }
+    else if (r.status === 409) { const doc = await r.json(); S = doc.data; rev = doc.rev; render(); status('Changed on another device — reloaded, redo your last change', true); }
+    else if (r.status === 401 || r.status === 429) { lockOut(); }
+    else throw new Error(r.status);
+  } catch { dirty = true; status('Offline — not saved, retrying', true); timer = setTimeout(push, 5000); }
+  saving = false;
+  if (dirty && !timer) timer = setTimeout(push, 500);
+}
+async function refresh() {
+  if (!S || dirty || saving) return;
+  try {
+    const r = await api('GET'); if (!r.ok) return;
+    const doc = await r.json();
+    if (doc.data && doc.rev !== rev && !dirty && !saving) { S = doc.data; rev = doc.rev; render(); }
+  } catch { /* offline: keep what we have */ }
+}
+function lockOut() { S = null; pw = null; sessionStorage.removeItem(PW_KEY); localStorage.removeItem(PW_KEY); showLock(); }
+
 /* ---------- auth ---------- */
-async function hashPw(pw, salt) {
-  const enc = new TextEncoder();
-  const k = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: enc.encode(salt), iterations: 150000, hash: 'SHA-256' }, k, 256);
-  return [...new Uint8Array(bits)].map(b => pad(b.toString(16))).join('');
-}
-const unlocked = () => S.auth && (sessionStorage.getItem(UNLOCK) === S.auth.hash || localStorage.getItem(UNLOCK) === S.auth.hash);
-function showLock() {
-  $('#app').hidden = true;
+function showLock(msg = '') {
+  $('#app').hidden = true; status('');
   const el = $('#lock'); el.hidden = false;
-  const fresh = !S.auth;
-  el.innerHTML = `<form data-form="${fresh ? 'setPw' : 'unlock'}">
+  el.innerHTML = `<form data-form="unlock">
     <div class="brand"><span class="dot"></span>kolstats</div>
-    <p class="muted small">${fresh ? 'Choose a password for this device.' : 'Enter password'}</p>
-    <input type="password" name="pw" autocomplete="${fresh ? 'new-password' : 'current-password'}" placeholder="Password" required minlength="4" autofocus>
+    <input type="password" name="pw" autocomplete="current-password" placeholder="Password" required autofocus>
     <label><input type="checkbox" name="remember"> Stay unlocked on this device</label>
-    <button class="primary">${fresh ? 'Create' : 'Unlock'}</button>
-    <div class="err" id="err"></div></form>`;
+    <button class="primary">Unlock</button>
+    <div class="err" id="err">${esc(msg)}</div></form>`;
 }
-function enter(remember) {
-  sessionStorage.setItem(UNLOCK, S.auth.hash);
-  if (remember) localStorage.setItem(UNLOCK, S.auth.hash); else localStorage.removeItem(UNLOCK);
+// Asks the server for the data with this password. Returns an error message, or '' once unlocked.
+async function login(p, remember) {
+  pw = p;
+  let r;
+  try { r = await api('GET'); } catch { pw = null; return 'Cannot reach the server'; }
+  if (!r.ok) {
+    pw = null;
+    if (r.status === 401) return 'Wrong password';
+    if (r.status === 429) { const j = await r.json().catch(() => ({})); return `Too many attempts — try again in ${j.retryMin || 15} min`; }
+    if (r.status === 503) return 'Server password is not set up yet';
+    return 'Server error';
+  }
+  const doc = await r.json();
+  rev = doc.rev || 0;
+  sessionStorage.setItem(PW_KEY, p);
+  if (remember) localStorage.setItem(PW_KEY, p);
+  if (doc.data) S = doc.data;
+  else {
+    // First login ever: carry over anything already entered in this browser.
+    let old = null; try { old = JSON.parse(localStorage.getItem(OLD_KEY)); } catch { /* ignore */ }
+    S = old && old.v === 1 ? old : defaults();
+    delete S.auth;
+    push(true);
+  }
   $('#lock').hidden = true; $('#app').hidden = false; render();
+  return '';
 }
 
 /* ---------- derived numbers ---------- */
@@ -280,12 +322,12 @@ V.tasks = () => {
   ${done.length ? `<div class="card mt"><h2>Done</h2><ul class="list">${done.map(li).join('')}</ul><button class="mt" data-act="clearDone">Clear done</button></div>` : ''}`;
 };
 
-V.settings = () => `<div class="head"><div><h1>Settings</h1><p class="muted">Data is stored in this browser only</p></div></div>
+V.settings = () => `<div class="head"><div><h1>Settings</h1><p class="muted">Data is stored online and syncs across your devices</p></div></div>
   <div class="grid g2">
-    <div class="card"><h2>Backup</h2><p class="muted small">Export regularly, and use export → import to move data between phone and laptop.</p>
+    <div class="card"><h2>Backup</h2><p class="muted small">Optional: download a copy of everything, or restore one.</p>
       <div class="chips mt"><button data-act="export">Export JSON</button><label class="btn" style="cursor:pointer">Import JSON<input type="file" accept="application/json" data-change="import" hidden></label></div></div>
-    <div class="card"><h2>Password</h2><form class="row" data-form="changePw"><input class="w2" type="password" name="pw" placeholder="New password" minlength="4" autocomplete="new-password" required><button>Change</button></form>
-      <div class="chips mt"><button data-act="lock">Lock now</button><button class="danger" data-act="reset">Erase all data</button></div></div>
+    <div class="card"><h2>Access</h2><p class="muted small">The password is set in Netlify (KOLSTATS_PASSWORD).</p>
+      <div class="chips mt"><button data-act="lock">Lock this device</button><button class="danger" data-act="reset">Erase all data</button></div></div>
   </div>`;
 
 /* ---------- render ---------- */
@@ -316,16 +358,16 @@ const A = {
     a.href = URL.createObjectURL(new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' }));
     a.download = `kolstats-${today()}.json`; a.click(); URL.revokeObjectURL(a.href);
   },
-  lock() { sessionStorage.removeItem(UNLOCK); localStorage.removeItem(UNLOCK); showLock(); return false; },
-  reset() { if (!confirm('Erase everything, including the password? This cannot be undone.')) return false; localStorage.removeItem(KEY); A.lock(); load(); showLock(); return false; },
+  lock() { lockOut(); return false; },
+  reset() { if (!confirm('Erase everything on all devices? This cannot be undone.')) return false; S = defaults(); render(); push(true); return false; },
 };
 const F = {
-  async setPw({ pw, remember }) { const salt = uid() + uid(); S.auth = { salt, hash: await hashPw(pw, salt) }; save(); enter(remember); return false; },
-  async unlock({ pw, remember }) {
-    if (await hashPw(pw, S.auth.salt) === S.auth.hash) enter(remember); else $('#err').textContent = 'Wrong password';
+  async unlock({ pw: p, remember }) {
+    $('#err').textContent = '';
+    const msg = await login(p, remember);
+    if (msg) $('#err').textContent = msg;
     return false;
   },
-  async changePw({ pw }) { const salt = uid() + uid(); S.auth = { salt, hash: await hashPw(pw, salt) }; save(); enter(!!localStorage.getItem(UNLOCK)); alert('Password changed'); return false; },
   addLift({ date, ex, w, reps }) { if (num(w) > 0 && num(reps) > 0) S.workout.lifts.push({ id: uid(), date, ex: ex.trim(), w: num(w), reps: Math.round(num(reps)) }); },
   addRun({ date, km, min, hr }) { if (num(km) > 0 && num(min) > 0) S.workout.runs.push({ id: uid(), date, km: num(km), min: num(min), hr: Math.round(num(hr)) }); },
   addTopics({ names }) { names.split('\n').map(s => s.trim()).filter(Boolean).forEach(name => S.exam.subjects[ui.subj].topics.push({ id: uid(), name, status: 0 })); },
@@ -345,7 +387,7 @@ const C = {
       const d = JSON.parse(t);
       if (d.v !== 1 || !d.workout || !d.macros) throw 0;
       if (!confirm('Replace all data on this device with this backup?')) return;
-      d.auth = S.auth; S = d; commit();
+      delete d.auth; S = d; render(); push(true);
     }).catch(() => alert('Not a valid kolstats backup.'));
   },
 };
@@ -360,8 +402,14 @@ document.addEventListener('submit', async e => {
   if (await F[f.dataset.form](Object.fromEntries(new FormData(f))) !== false) commit();
 });
 document.addEventListener('change', e => { const k = e.target.dataset.change; if (k) C[k](e.target); });
-addEventListener('hashchange', () => { if (unlocked()) { render(); scrollTo(0, 0); } });
+addEventListener('hashchange', () => { if (S) { render(); scrollTo(0, 0); } });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); });
+addEventListener('pagehide', () => { if (S && dirty) api('PUT', { rev, data: S }, true); });
 
-load();
-if (unlocked()) { $('#app').hidden = false; render(); } else showLock();
+(async () => {
+  const stored = sessionStorage.getItem(PW_KEY) || localStorage.getItem(PW_KEY);
+  if (!stored) return showLock();
+  const msg = await login(stored, !!localStorage.getItem(PW_KEY));
+  if (msg) { if (msg === 'Wrong password') lockOut(); else showLock(msg); }
+})();
 })();
